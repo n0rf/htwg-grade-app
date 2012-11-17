@@ -3,5 +3,7 @@
 
     <string name="app_name">HTWG Grade App</string>
     <string name="title_degree_detail">Degrees of Grade: %1$s</string>
+    <string name="menu_item_refresh">refresh</string>
+    <string name="menu_item_settings">settings</string>
 
 </resources>

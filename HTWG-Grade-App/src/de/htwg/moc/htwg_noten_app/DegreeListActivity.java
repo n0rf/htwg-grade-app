@@ -3,6 +3,9 @@ package de.htwg.moc.htwg_noten_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 /**
  * An activity representing a list of Grades. This activity has different
@@ -20,7 +23,7 @@ import android.support.v4.app.FragmentActivity;
  * {@link DegreeListFragment.Callbacks} interface to listen for item selections.
  */
 public class DegreeListActivity extends FragmentActivity implements
-		DegreeListFragment.Callbacks {
+		DegreeListFragment.Callbacks {// OnMenuItemClickListener {
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -64,8 +67,61 @@ public class DegreeListActivity extends FragmentActivity implements
 		} else {
 			// single-pane: start detail activity for the selected number
 			Intent detailIntent = new Intent(this, GradeDetailActivity.class);
-			detailIntent.putExtra(GradeDetailFragment.ARG_DEGREE_NUMBER, number);
+			detailIntent
+					.putExtra(GradeDetailFragment.ARG_DEGREE_NUMBER, number);
 			startActivity(detailIntent);
 		}
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_menu, menu);
+
+		// menu.add(0, R.id.menu_item_settings, 0,
+		// R.string.menu_item_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+		// menu.add(0, 2, 0,
+		// R.string.menu_item_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.menu_item_refresh:
+			// TODO: refresh the activity by checking for new degrees
+			return true;
+		case R.id.menu_item_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			this.startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	/**
+	 * Method shows the popup menu with settings and other items.
+	 */
+//	public void showPopup(View v) {
+//		PopupMenu popup = new PopupMenu(this, v);
+//		MenuInflater inflater = popup.getMenuInflater();
+//		popup.setOnMenuItemClickListener(this);
+//		inflater.inflate(R.menu.popup_menu, popup.getMenu());
+//		popup.show();
+//	}
+
+//	@Override
+//	public boolean onMenuItemClick(MenuItem item) {
+//		switch (item.getItemId()) {
+//			case R.id.menu_item_settings:
+//				Intent intent = new Intent(this, SettingsActivity.class);
+//				this.startActivity(intent);
+//				return true;
+//			default:
+//				return false;
+//		}
+//	}
 }
