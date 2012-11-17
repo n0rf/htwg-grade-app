@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HTWG Grade App</string>
+    <string name="title_degree_detail">Degrees of Grade: %1$s</string>
+
+</resources>
