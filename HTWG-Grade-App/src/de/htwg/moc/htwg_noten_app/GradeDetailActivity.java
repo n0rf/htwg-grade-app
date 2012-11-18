@@ -4,7 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
+import de.htwg.moc.htwg_noten_app.dos.GradesFilter;
 
 /**
  * An activity representing a single Grade detail screen. This activity is only
@@ -14,8 +23,11 @@ import android.view.MenuItem;
  * This activity is mostly just a 'shell' activity containing nothing more than
  * a {@link GradeDetailFragment}.
  */
-public class GradeDetailActivity extends FragmentActivity {
+public class GradeDetailActivity extends FragmentActivity implements
+		OnMenuItemClickListener {
 
+	private GradeDetailFragment m_fragment;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,15 +49,24 @@ public class GradeDetailActivity extends FragmentActivity {
 			// Create the detail fragment and add it to the activity
 			// using a fragment transaction.
 			Bundle arguments = new Bundle();
-			arguments.putString(GradeDetailFragment.ARG_DEGREE_NUMBER, getIntent()
-					.getStringExtra(GradeDetailFragment.ARG_DEGREE_NUMBER));
-			GradeDetailFragment fragment = new GradeDetailFragment();
-			fragment.setArguments(arguments);
+			arguments.putString(
+					GradeDetailFragment.ARG_DEGREE_NUMBER,
+					getIntent().getStringExtra(
+							GradeDetailFragment.ARG_DEGREE_NUMBER));
+			m_fragment = new GradeDetailFragment();
+			m_fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.add(R.id.grade_detail_container, fragment).commit();
+					.add(R.id.grade_detail_container, m_fragment).commit();
 		}
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.grades_menu, menu);
+		return true;
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -59,8 +80,63 @@ public class GradeDetailActivity extends FragmentActivity {
 			//
 			NavUtils.navigateUpTo(this, new Intent(this,
 					DegreeListActivity.class));
+
+			// Handle item selection
+		case R.id.grades_menu_item_search:
+			// TODO: show keyboard, read input and search available grades!
 			return true;
+		case R.id.grades_menu_item_filter:
+			showPopup(findViewById(R.id.grades_menu_item_filter));
+			return true;
+		case R.id.grades_menu_item_refresh:
+			// TODO: refresh grades
+			return true;
+		case R.id.grades_menu_item_settings:
+			Intent intent = new Intent(this, SettingsActivity.class);
+			this.startActivity(intent);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
 		}
-		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * Method shows the popup menu with settings and other items.
+	 */
+	public void showPopup(View v) {
+		PopupMenu popup = new PopupMenu(this, v);
+		MenuInflater inflater = popup.getMenuInflater();
+		popup.setOnMenuItemClickListener(this);
+		inflater.inflate(R.menu.popup_menu, popup.getMenu());
+		popup.show();
+	}
+
+	@Override
+	public boolean onMenuItemClick(MenuItem item) {
+		if (item.isChecked()) {
+			item.setChecked(false);
+		} else {
+			item.setChecked(true);
+		}
+		item.setChecked(true);
+		GradesFilter filter = GradesFilter.ALL;
+		switch (item.getItemId()) {
+		case R.id.popup_filter_menu_item_all:
+			filter = GradesFilter.ALL;
+			break;
+		case R.id.popup_filter_menu_item_grades:
+			filter = GradesFilter.GRADED;
+			break;
+		case R.id.popup_filter_menu_item_certificates:
+			filter = GradesFilter.CERTIFICATES;
+			break;
+		case R.id.popup_filter_menu_item_modules:
+			filter = GradesFilter.MODULES;
+			break;
+		default:
+			return false;
+		}
+		m_fragment.updateGradeList(filter);
+		return true;
 	}
 }

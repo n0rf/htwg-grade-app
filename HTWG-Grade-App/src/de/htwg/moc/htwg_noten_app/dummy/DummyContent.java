@@ -7,6 +7,7 @@ import java.util.Map;
 
 import de.htwg.moc.htwg_noten_app.dos.Degree;
 import de.htwg.moc.htwg_noten_app.dos.Grade;
+import de.htwg.moc.htwg_noten_app.dos.GradesFilter;
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -16,6 +17,8 @@ import de.htwg.moc.htwg_noten_app.dos.Grade;
  */
 public class DummyContent {
 
+	public static GradesFilter FILTER = GradesFilter.ALL;
+	
 	/** List of dummy degrees */
 	public static Map<String, Degree> DEGREES = new HashMap<String, Degree>();
 	
@@ -26,8 +29,8 @@ public class DummyContent {
 		Degree bachelor = new Degree("84", "Bachelor");
 		bachelor.addGrade(new Grade("SEB", "Mathematik 1", "WS08/09", 1.7, false));
 		bachelor.addGrade(new Grade("SEB", "Mathematik 1 (S)", "WS08/09"));
-		bachelor.addGrade(new Grade("SEB", "Digitaltechnik", "WS08/09"));
-		bachelor.addGrade(new Grade("SEB", "Digitaltechnik (S)", "WS08/09", 1.7, false));
+		bachelor.addGrade(new Grade("SEB", "Digitaltechnik", "WS08/09", 1.7, false));
+		bachelor.addGrade(new Grade("SEB", "Digitaltechnik (S)", "WS08/09"));
 		bachelor.addGrade(new Grade("SEB", "Algorithmen und Theoretische Informatik", "WS09/10", 2.2, true));
 		bachelor.addGrade(new Grade("SEB", "Wahlpflichtmodul", "WS11/12", 1.7, true));
 		DEGREES.put(String.valueOf(bachelor.getNumber()), bachelor);

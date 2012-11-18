@@ -36,6 +36,7 @@ public class Grade {
 		this.m_examText = examText;
 		this.m_semester = semester;
 		this.m_grade = grade;
+		this.m_graded = true;
 		this.m_certOnly = false;
 		this.m_modul = modul;
 	}
@@ -88,7 +89,7 @@ public class Grade {
 		this.m_grade = grade;
 	}
 
-	public boolean getGraded() {
+	public boolean isGraded() {
 		return m_graded;
 	}
 

@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <item android:id="@+id/menu_item_settings"
-		android:title="@string/menu_item_settings"
-		android:showAsAction="withText" />
+    <group android:checkableBehavior="single">
+	    <item android:id="@+id/popup_filter_menu_item_all"
+			android:title="@string/popup_filter_menu_item_all"
+			android:showAsAction="withText" />
+	    
+	    <item android:id="@+id/popup_filter_menu_item_grades"
+			android:title="@string/popup_filter_menu_item_grades"
+			android:showAsAction="withText" />
+	    
+	    <item android:id="@+id/popup_filter_menu_item_certificates"
+			android:title="@string/popup_filter_menu_item_certificates"
+			android:showAsAction="withText" />
+	    
+	    <item android:id="@+id/popup_filter_menu_item_modules"
+			android:title="@string/popup_filter_menu_item_modules"
+			android:showAsAction="withText" />
+	</group>
     
 </menu>

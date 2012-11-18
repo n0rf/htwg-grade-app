@@ -26,7 +26,8 @@
         <activity
             android:name="de.htwg.moc.htwg_noten_app.GradeDetailActivity"
             android:label="@string/title_degree_detail"
-            android:parentActivityName=".DegreeListActivity" >
+            android:parentActivityName=".DegreeListActivity"
+            android:theme="@android:style/Theme.Holo.Light" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DegreeListActivity" />
@@ -34,7 +35,8 @@
         <activity
             android:name="de.htwg.moc.htwg_noten_app.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="de.htwg.moc.htwg_noten_app.DegreeListActivity" >
+            android:parentActivityName="de.htwg.moc.htwg_noten_app.DegreeListActivity"
+            android:theme="@android:style/Theme.Holo.Light" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="de.htwg.moc.htwg_noten_app.DegreeListActivity" />
