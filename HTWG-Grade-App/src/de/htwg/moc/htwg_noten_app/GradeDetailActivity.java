@@ -4,16 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import de.htwg.moc.htwg_noten_app.dos.GradesFilter;
+import de.htwg.moc.htwg_noten_app.dummy.DummyContent;
 
 /**
  * An activity representing a single Grade detail screen. This activity is only
@@ -108,17 +106,17 @@ public class GradeDetailActivity extends FragmentActivity implements
 		MenuInflater inflater = popup.getMenuInflater();
 		popup.setOnMenuItemClickListener(this);
 		inflater.inflate(R.menu.popup_menu, popup.getMenu());
+		MenuItem i = popup.getMenu().findItem(DummyContent.FILTER_MENU_SELECTION);
+		i.setChecked(true);
 		popup.show();
 	}
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		if (item.isChecked()) {
-			item.setChecked(false);
-		} else {
-			item.setChecked(true);
-		}
+		
 		item.setChecked(true);
+		DummyContent.FILTER_MENU_SELECTION = item.getItemId();
+		
 		GradesFilter filter = GradesFilter.ALL;
 		switch (item.getItemId()) {
 		case R.id.popup_filter_menu_item_all:

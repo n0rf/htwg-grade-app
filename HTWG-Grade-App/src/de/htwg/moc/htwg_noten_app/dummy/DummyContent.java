@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.htwg.moc.htwg_noten_app.R;
 import de.htwg.moc.htwg_noten_app.dos.Degree;
 import de.htwg.moc.htwg_noten_app.dos.Grade;
 import de.htwg.moc.htwg_noten_app.dos.GradesFilter;
@@ -16,6 +17,8 @@ import de.htwg.moc.htwg_noten_app.dos.GradesFilter;
  * TODO: Replace all uses of this class before publishing your app.
  */
 public class DummyContent {
+
+	public static int FILTER_MENU_SELECTION = R.id.popup_filter_menu_item_all;;
 
 	public static GradesFilter FILTER = GradesFilter.ALL;
 	
