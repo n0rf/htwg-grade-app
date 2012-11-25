@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
     Layout alias to replace the single-pane version of the layout with a
@@ -7,6 +7,7 @@
     For more on layout aliases, see:
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
-    <item name="activity_degree_list" type="layout">@layout/activity_grade_twopane</item>
+    <item name="activity_degree_list" type="layout">@layout/activity_degree_twopane</item>
+    <item name="menu_twopane" type="menu">@menu/twopane_menu</item>
 
 </resources>

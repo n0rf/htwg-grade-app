@@ -16,5 +16,7 @@
     
     <string name="grades_head_examText">Exam Text</string>
     <string name="grades_head_grade">Grade</string>
+    
+    <string name="grade_search_hint">Exam text</string>
 
 </resources>
