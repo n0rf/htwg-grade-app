@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">HTWG Grade App</string>
-    <string name="title_degree_detail">Degrees of Grade: %1$s</string>
+    <string name="title_degree_detail">Grades of Degree: %1$s</string>
     <string name="menu_item_refresh">refresh</string>
     <string name="menu_item_settings">Settings</string>
     
@@ -18,5 +18,8 @@
     <string name="grades_head_grade">Grade</string>
     
     <string name="grade_search_hint">Exam text</string>
-
+    
+    <string name="refreh_loading">Loading degrees and grades, please wait.</string>
+    <string name="refreh_success">Successfully loaded degrees and grades!</string>
+    <string name="refreh_failed">Failed to load degrees and grades!</string>
 </resources>
