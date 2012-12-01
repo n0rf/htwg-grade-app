@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HTWG Grade App</string>
+    <string name="title_degree_detail">Grades of Degree: %1$s</string>
+    <string name="menu_item_refresh">Refresh</string>
+    <string name="menu_item_settings">Settings</string>
+    
+    <string name="grades_menu_item_search">Search</string>
+    <string name="grades_menu_item_filter">Filter</string>
+    
+    <string name="popup_filter_menu_item_all">All</string>
+    <string name="popup_filter_menu_item_grades">Grades</string>
+    <string name="popup_filter_menu_item_certificates">Certificates</string>
+    <string name="popup_filter_menu_item_modules">Modules</string>
+    
+    <string name="grades_head_examText">Exam Text</string>
+    <string name="grades_head_grade">Grade</string>
+    <string name="grades_head_ects">ECTS</string>
+    
+    <string name="grade_search_hint">Exam text</string>
+    
+    <string name="refreh_loading">Loading degrees and grades, please wait.</string>
+    <string name="refreh_success">Successfully loaded degrees and grades!</string>
+    <string name="refreh_failed">Failed to load degrees and grades!</string>
+</resources>
