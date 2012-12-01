@@ -1,8 +1,13 @@
 package de.htwg.moc.htwg_grade_app;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.SearchManager;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -11,8 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import android.widget.SearchView;
-import de.htwg.moc.htwg_grade_app.dummy.DummyContent;
+import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
 import de.htwg.moc.htwg_noten_app.dos.GradesFilter;
 
 /**
@@ -39,10 +43,39 @@ public class DegreeListActivity extends FragmentActivity implements
 	 */
 	private boolean m_twoPane;
 
+	private Builder m_builder;
+	private AlertDialog dialog;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_degree_list);
+
+		// check settings and restore preferences:
+		SharedPreferences s1 = getSharedPreferences(
+				SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
+		String u = s1.getString(SettingsActivity.KEY_PREF_USERNAME, "");
+		String pw = s1.getString(SettingsActivity.KEY_PREF_PASSWORD, "");
+		// SharedPreferences settings =
+		// PreferenceManager.getDefaultSharedPreferences(this);
+		// String user = settings.getString(SettingsActivity.KEY_PREF_USERNAME,
+		// "");
+		// String password =
+		// settings.getString(SettingsActivity.KEY_PREF_PASSWORD, "");
+
+		if ("".equals(u) || "".equals(pw)) {
+			Intent intent = new Intent(this, SettingsActivity.class);
+			this.startActivity(intent);
+		} else {
+			// AsyncTask<String, String, Boolean> task =
+			DegreeContent.loadData(DegreeListActivity.this, u, pw);
+
+			m_builder = new AlertDialog.Builder(this);
+			dialog = m_builder.create();
+			dialog.setMessage(getText(R.string.refreh_loading));
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+		}
 
 		if (findViewById(R.id.degree_detail_container) != null) {
 			// The detail container view will be present only in the
@@ -162,12 +195,8 @@ public class DegreeListActivity extends FragmentActivity implements
 			return true;
 		case R.id.degree_menu_item_refresh:
 			refresh();
-			// TODO: refresh grades
 			return true;
 		case R.id.grades_menu_item_settings:
-			intent = new Intent(this, SettingsActivity.class);
-			this.startActivity(intent);
-			return true;
 		case R.id.degree_menu_item_settings:
 			intent = new Intent(this, SettingsActivity.class);
 			this.startActivity(intent);
@@ -191,15 +220,41 @@ public class DegreeListActivity extends FragmentActivity implements
 	}
 
 	private void refresh() {
-		// refresh degree list view and request new grades and degrees from QIS
-		((DegreeListFragment) getSupportFragmentManager().findFragmentById(
-				R.id.degree_list)).refreshListView();
+		if (!DegreeContent.isRequesting) {
+			SharedPreferences settings = getSharedPreferences(
+					SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
+			// SharedPreferences settings =
+			// PreferenceManager.getDefaultSharedPreferences(this);
+			String u = settings.getString(SettingsActivity.KEY_PREF_USERNAME,
+					"");
+			String pw = settings.getString(SettingsActivity.KEY_PREF_PASSWORD,
+					"");
+			DegreeContent.loadData(this, u, pw);
 
-		if (m_twoPane) {
-			// refresh grades list view and without requesting new grades from
+			Builder builder = new AlertDialog.Builder(this);
+			dialog = builder.create();
+			// dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+			dialog.setMessage(getText(R.string.refreh_loading));
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+
+			// refresh degree list view and request new grades and degrees from
 			// QIS
-			((GradesListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.degree_detail_container)).refreshListView(false);
+			// ((DegreeListFragment)
+			// getSupportFragmentManager().findFragmentById(
+			// R.id.degree_list)).refreshListView();
+			//
+			// if (m_twoPane) {
+			// // refresh grades list view and without requesting new grades
+			// // from
+			// // QIS
+			// GradesListFragment fragment = ((GradesListFragment)
+			// getSupportFragmentManager()
+			// .findFragmentById(R.id.degree_detail_container));
+			// if (null != fragment) {
+			// fragment.refreshListView(false);
+			// }
+			// }
 		}
 	}
 
@@ -212,10 +267,11 @@ public class DegreeListActivity extends FragmentActivity implements
 		popup.setOnMenuItemClickListener(this);
 		inflater.inflate(R.menu.popup_menu, popup.getMenu());
 		MenuItem item;
-		if (DummyContent.FILTER_MENU_SELECTION == 0) {
+		if (DegreeContent.FILTER_MENU_SELECTION == 0) {
 			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
 		} else {
-			item = popup.getMenu().findItem(DummyContent.FILTER_MENU_SELECTION);
+			item = popup.getMenu()
+					.findItem(DegreeContent.FILTER_MENU_SELECTION);
 		}
 		item.setChecked(true);
 		popup.show();
@@ -224,7 +280,7 @@ public class DegreeListActivity extends FragmentActivity implements
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
 		item.setChecked(true);
-		DummyContent.FILTER_MENU_SELECTION = item.getItemId();
+		DegreeContent.FILTER_MENU_SELECTION = item.getItemId();
 
 		GradesFilter filter = GradesFilter.ALL;
 		switch (item.getItemId()) {
@@ -243,7 +299,7 @@ public class DegreeListActivity extends FragmentActivity implements
 		default:
 			return false;
 		}
-		DummyContent.FILTER = filter;
+		DegreeContent.FILTER = filter;
 
 		((GradesListFragment) getSupportFragmentManager().findFragmentById(
 				R.id.degree_detail_container)).updateGradeList(filter);
@@ -265,4 +321,65 @@ public class DegreeListActivity extends FragmentActivity implements
 		return true;
 	}
 
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+
+		// Checks the orientation of the screen
+		// if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
+		// if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+	}
+
+	public void showLoadProcedureInformation(String message) {
+		// ProgressDialog dialog = new ProgressDialog(this);
+		// dialog.setMessage(message);
+		// dialog.show();
+		// dialog.setMessage(message);
+	}
+
+	public void finishedLoadProcedure(boolean result) {
+		DegreeContent.isRequesting = false;
+		dialog.dismiss();
+		if (null == m_builder) {
+			m_builder = new AlertDialog.Builder(this);
+		}
+		dialog = m_builder.create();
+		if (result) {
+			dialog.setMessage(getText(R.string.refreh_success));
+		} else {
+			dialog.setMessage(getText(R.string.refreh_failed));
+		}
+		dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+				new OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+
+						DegreeListFragment degreeFragment = ((DegreeListFragment) getSupportFragmentManager()
+								.findFragmentById(R.id.degree_list));
+						if (null != degreeFragment) {
+							degreeFragment.refreshListView();
+						}
+
+						if (m_twoPane) {
+							// refresh grades list view and without requesting
+							// new grades from QIS
+							GradesListFragment gradesFragment = ((GradesListFragment) getSupportFragmentManager()
+									.findFragmentById(
+											R.id.degree_detail_container));
+							if (null != gradesFragment) {
+								gradesFragment.refreshListView(false);
+							}
+						}
+
+						DegreeListFragment fragment = ((DegreeListFragment) getSupportFragmentManager()
+								.findFragmentById(R.id.degree_list));
+						if (null != fragment) {
+							fragment.refreshListView();
+						}
+					}
+				});
+		dialog.show();
+	}
 }

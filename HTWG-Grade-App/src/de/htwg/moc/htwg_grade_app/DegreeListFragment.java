@@ -6,7 +6,7 @@ import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import de.htwg.moc.htwg_grade_app.dummy.DummyContent;
+import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
 import de.htwg.moc.htwg_noten_app.dos.Degree;
 
 /**
@@ -72,7 +72,7 @@ public class DegreeListFragment extends ListFragment {
 
 		setListAdapter(new ArrayAdapter<Degree>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.DEGREE_LIST));
+				android.R.id.text1, DegreeContent.DEGREE_LIST));
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class DegreeListFragment extends ListFragment {
 		// fragment is attached to one) that an item has been selected.
 		//m_callbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
 		
-		String number = DummyContent.DEGREE_LIST.get(position).getNumber();
+		String number = DegreeContent.DEGREE_LIST.get(position).getNumber();
 		m_callbacks.onItemSelected(number);
 	}
 
@@ -155,6 +155,6 @@ public class DegreeListFragment extends ListFragment {
 	public void refreshListView() {
 		setListAdapter(new ArrayAdapter<Degree>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DummyContent.DEGREE_LIST));
+				android.R.id.text1, DegreeContent.DEGREE_LIST));
 	}
 }

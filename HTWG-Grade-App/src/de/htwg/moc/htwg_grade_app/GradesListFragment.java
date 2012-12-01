@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import de.htwg.moc.htwg_grade_app.dummy.DummyContent;
+import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
 import de.htwg.moc.htwg_noten_app.adapter.GradeListAdapter;
 import de.htwg.moc.htwg_noten_app.dos.Degree;
 import de.htwg.moc.htwg_noten_app.dos.Grade;
@@ -67,8 +68,8 @@ public class GradesListFragment extends Fragment {
 
 			m_selectedDegree = getArguments().getString(ARG_DEGREE_NUMBER);
 
-			if (DummyContent.DEGREES.containsKey(m_selectedDegree)) {
-				m_degree = DummyContent.DEGREES.get(m_selectedDegree);
+			if (DegreeContent.DEGREES.containsKey(m_selectedDegree)) {
+				m_degree = DegreeContent.DEGREES.get(m_selectedDegree);
 				getActivity().setTitle(
 						getString(R.string.title_degree_detail,
 								m_degree.getNumber()));
@@ -77,7 +78,7 @@ public class GradesListFragment extends Fragment {
 	}
 
 	public void updateGradeList(GradesFilter filter) {
-		DummyContent.FILTER = filter;
+		DegreeContent.FILTER = filter;
 		if (!m_selectedDegree.equals("") && null != m_degree
 				&& null != m_rootView) {
 			ListView lv = ((ListView) m_rootView.findViewById(R.id.grades_list));
@@ -127,22 +128,26 @@ public class GradesListFragment extends Fragment {
 	}
 
 	public void updateGradeList(String examText) {
-		DummyContent.FILTER = GradesFilter.ALL;
-		DummyContent.EXAM_TEXT_FILTER = examText;
+		DegreeContent.FILTER = GradesFilter.ALL;
+		DegreeContent.EXAM_TEXT_FILTER = examText;
 
-//		FragmentActivity a = this.getActivity();
-//		View v = a.findViewById(R.id.grades_list);
-//		getFragmentManager().findFragmentById(R.layout.)
-//		View v3 = a.findViewById(R.id.degree_detail_container);
-		//GradesListFragment g = ((GradesListFragment)getSupportFragmentManager().findFragmentById(R.layout.fragment_grades_list));
-		if (!m_selectedDegree.equals("") && null != m_degree && null != m_rootView) {
-			//ListView lv1 = (ListView) this.getActivity().findViewById(R.id.degree_detail_container);
-			ListView lv = (ListView) m_rootView.findViewById(R.id.grades_list); //((ListView) m_rootView.findViewById(R.id.grades_list));
+		// FragmentActivity a = this.getActivity();
+		// View v = a.findViewById(R.id.grades_list);
+		// getFragmentManager().findFragmentById(R.layout.)
+		// View v3 = a.findViewById(R.id.degree_detail_container);
+		// GradesListFragment g =
+		// ((GradesListFragment)getSupportFragmentManager().findFragmentById(R.layout.fragment_grades_list));
+		if (!m_selectedDegree.equals("") && null != m_degree
+				&& null != m_rootView) {
+			// ListView lv1 = (ListView)
+			// this.getActivity().findViewById(R.id.degree_detail_container);
+			ListView lv = (ListView) m_rootView.findViewById(R.id.grades_list); // ((ListView)
+																				// m_rootView.findViewById(R.id.grades_list));
 
-//			if (null == lv) {
-//				lv = lv1;
-//			}
-			
+			// if (null == lv) {
+			// lv = lv1;
+			// }
+
 			// create the grid item mapping
 			// from: key of the items in the map
 			String[] from = new String[] { "examText", "grade" };
@@ -156,7 +161,8 @@ public class GradesListFragment extends Fragment {
 			List<Grade> grades = new ArrayList<Grade>();
 			Locale locale = getResources().getConfiguration().locale;
 			for (Grade grade : m_degree.getGrades()) {
-				if (grade.getExamText().toLowerCase(locale).contains(examText.toLowerCase(locale))) {
+				if (grade.getExamText().toLowerCase(locale)
+						.contains(examText.toLowerCase(locale))) {
 					map = new HashMap<String, String>();
 					map.put("examText", grade.getExamText());
 					if (grade.getGrade() == 0.0) {
@@ -173,9 +179,9 @@ public class GradesListFragment extends Fragment {
 			// fill in the grid_item layout
 			SimpleAdapter adapter = new GradeListAdapter(getActivity(),
 					fillMaps, grades, R.layout.grade_list_item, from, to);
-			//adapter.notifyDataSetChanged();
+			// adapter.notifyDataSetChanged();
 			lv.setAdapter(adapter);
-			//lv.invalidateViews();
+			// lv.invalidateViews();
 		}
 	}
 
@@ -193,7 +199,7 @@ public class GradesListFragment extends Fragment {
 
 		// show the filtered degree details
 		if ("" == m_examTextFilter) {
-			updateGradeList(DummyContent.FILTER);
+			updateGradeList(DegreeContent.FILTER);
 		} else {
 			updateGradeList(m_examTextFilter);
 		}
@@ -202,21 +208,32 @@ public class GradesListFragment extends Fragment {
 	}
 
 	public void setTextFilter(String examText) {
-		this.m_examTextFilter  = examText;
+		this.m_examTextFilter = examText;
 		updateGradeList(examText);
 	}
-	
+
 	public void refreshListView(boolean requestNewGrades) {
 		if ("" != m_selectedDegree) {
 			if (requestNewGrades) {
-				m_degree = DummyContent.DEGREES.get(m_selectedDegree);
-			}
-			
-			// show the filtered degree details
-			if ("" == DummyContent.EXAM_TEXT_FILTER) {
-				updateGradeList(DummyContent.FILTER);
+				Intent intent = new Intent(getActivity(),
+						DegreeListActivity.class);
+				startActivity(intent);
+
+				// TODO: request grades and degrees on degree activity and
+				// update fragment/activity
+				// TODO: Single pane: if selected degree is still in list,
+				// update view with this data!
+				// TODO: Two pane: use degree list activity for update process
+				// TODO: in all cases: checked grade still there?
+				// m_degree = DegreeContent.DEGREES.get(m_selectedDegree);
 			} else {
-				updateGradeList(m_examTextFilter);
+
+				// show the filtered degree details
+				if ("" == DegreeContent.EXAM_TEXT_FILTER) {
+					updateGradeList(DegreeContent.FILTER);
+				} else {
+					updateGradeList(m_examTextFilter);
+				}
 			}
 		}
 	}

@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import de.htwg.moc.htwg_grade_app.dummy.DummyContent;
+import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
 import de.htwg.moc.htwg_noten_app.dos.GradesFilter;
 
 /**
@@ -152,10 +152,10 @@ public class GradesListActivity extends FragmentActivity implements
 		popup.setOnMenuItemClickListener(this);
 		inflater.inflate(R.menu.popup_menu, popup.getMenu());
 		MenuItem item;
-		if (DummyContent.FILTER_MENU_SELECTION == 0) {
+		if (DegreeContent.FILTER_MENU_SELECTION == 0) {
 			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
 		} else {
-			item = popup.getMenu().findItem(DummyContent.FILTER_MENU_SELECTION);
+			item = popup.getMenu().findItem(DegreeContent.FILTER_MENU_SELECTION);
 		}
 		item.setChecked(true);
 		// MenuItem i =
@@ -168,7 +168,7 @@ public class GradesListActivity extends FragmentActivity implements
 	public boolean onMenuItemClick(MenuItem item) {
 
 		item.setChecked(true);
-		DummyContent.FILTER_MENU_SELECTION = item.getItemId();
+		DegreeContent.FILTER_MENU_SELECTION = item.getItemId();
 
 		GradesFilter filter = GradesFilter.ALL;
 		switch (item.getItemId()) {
