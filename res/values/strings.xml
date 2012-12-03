@@ -5,10 +5,12 @@
     <string name="title_degree_detail">Grades of Degree: %1$s</string>
     <string name="menu_item_refresh">Refresh</string>
     <string name="menu_item_settings">Settings</string>
+    <string name="menu_item_clear_search_filter">Clear search history</string>
     
     <string name="grades_menu_item_search">Search</string>
     <string name="grades_menu_item_filter">Filter</string>
     
+    <string name="popup_filter_menu_item_text">Search filter: %1$s</string>
     <string name="popup_filter_menu_item_all">All</string>
     <string name="popup_filter_menu_item_grades">Grades</string>
     <string name="popup_filter_menu_item_certificates">Certificates</string>
@@ -19,8 +21,26 @@
     <string name="grades_head_ects">ECTS</string>
     
     <string name="grade_search_hint">Exam text</string>
+    <string name="voice_search">insert voice search</string>
     
     <string name="refreh_loading">Loading degrees and grades, please wait.</string>
     <string name="refreh_success">Successfully loaded degrees and grades!</string>
     <string name="refreh_failed">Failed to load degrees and grades!</string>
+    
+    
+    <!-- Grade details strings -->
+    <string name="grade_detail_program">Program</string>
+    <string name="grade_detail_exam_number">Exam Number</string>
+    <string name="grade_detail_exam_text">Exam Text</string>
+    <string name="grade_detail_semester">Semester</string>
+    <string name="grade_detail_ects">ECTS</string>
+    <string name="grade_detail_grade">Grade</string>
+    <string name="grade_detail_type">Type</string>
+    <string name="grade_detail_type_modul">Modul</string>
+    <string name="grade_detail_type_certificate">Certificate</string>
+    <string name="grade_detail_type_graded">Graded</string>
+    <string name="grade_detail_state">State</string>
+    <string name="grade_detail_notes">Notes</string>
+    <string name="grade_detail_attempts">Attempts</string>
+
 </resources>
