@@ -9,6 +9,8 @@
     -->
     <item name="activity_degree_list" type="layout">@layout/activity_degree_twopane</item>
     <item name="grade_list_item" type="layout">@layout/grade_list_item_twopane</item>
+    <item name="fragment_grades_list" type="layout">@layout/fragment_grades_list_twopane</item>
+    <item name="fragment_grade_details" type="layout">@layout/fragment_grade_details_twopane</item>
     <item name="menu_twopane" type="menu">@menu/twopane_menu</item>
     
 </resources>
