@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +19,7 @@ import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import de.htwg.moc.htwg_grade_app.dos.GradesFilter;
 import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
+import de.htwg.moc.htwg_grade_app.searchable.SuggestionProvider;
 
 /**
  * An activity representing a list of Grades. This activity has different
@@ -34,8 +36,8 @@ import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
  * This activity also implements the required
  * {@link DegreeListFragment.Callbacks} interface to listen for item selections.
  */
-public class DegreeListActivity extends FragmentActivity implements
-		OnMenuItemClickListener, DegreeListFragment.Callbacks {
+public class DegreeListActivity extends FragmentActivity implements OnMenuItemClickListener,
+		DegreeListFragment.Callbacks {
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -76,8 +78,8 @@ public class DegreeListActivity extends FragmentActivity implements
 			// 'activated' state when touched.
 
 			// Only in two-pane mode, touched items should be marked as actived!
-			((DegreeListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.degree_list)).setActivateOnItemClick(true);
+			((DegreeListFragment) getSupportFragmentManager().findFragmentById(R.id.degree_list))
+					.setActivateOnItemClick(true);
 
 			// Get the intent, verify the action and get the query
 			handleIntent(getIntent());
@@ -86,14 +88,11 @@ public class DegreeListActivity extends FragmentActivity implements
 
 	private void refreshDegreeList() {
 		if (!DegreeContent.isRequesting) {
-			SharedPreferences settings = getSharedPreferences(
-					SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
+			SharedPreferences settings = getSharedPreferences(SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
 			// SharedPreferences settings =
 			// PreferenceManager.getDefaultSharedPreferences(this);
-			String user = settings.getString(
-					SettingsActivity.KEY_PREF_USERNAME, "");
-			String password = settings.getString(
-					SettingsActivity.KEY_PREF_PASSWORD, "");
+			String user = settings.getString(SettingsActivity.KEY_PREF_USERNAME, "");
+			String password = settings.getString(SettingsActivity.KEY_PREF_PASSWORD, "");
 
 			if ("".equals(user) || "".equals(password)) {
 				Intent intent = new Intent(this, SettingsActivity.class);
@@ -121,8 +120,12 @@ public class DegreeListActivity extends FragmentActivity implements
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String examText = intent.getStringExtra(SearchManager.QUERY);
 
-			GradesListFragment fragment = ((GradesListFragment) getSupportFragmentManager()
-					.findFragmentById(R.id.degree_detail_container));
+			SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SuggestionProvider.AUTHORITY,
+					SuggestionProvider.MODE);
+			suggestions.saveRecentQuery(examText, null);
+
+			GradesListFragment fragment = ((GradesListFragment) getSupportFragmentManager().findFragmentById(
+					R.id.degree_detail_container));
 			if (null != fragment) {
 				// fragment.setTextFilter(examText);
 				fragment.updateGradeList(examText);
@@ -144,14 +147,12 @@ public class DegreeListActivity extends FragmentActivity implements
 			arguments.putString(GradesListFragment.ARG_DEGREE_NUMBER, number);
 			GradesListFragment fragment = new GradesListFragment();
 			fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.degree_detail_container, fragment).commit();
+			getSupportFragmentManager().beginTransaction().replace(R.id.degree_detail_container, fragment).commit();
 		} else {
 			// In single-pane mode, simply start the detail activity
 			// for the selected item ID.
 			Intent gradesListIntent = new Intent(this, GradesListActivity.class);
-			gradesListIntent.putExtra(GradesListFragment.ARG_DEGREE_NUMBER,
-					number);
+			gradesListIntent.putExtra(GradesListFragment.ARG_DEGREE_NUMBER, number);
 			startActivity(gradesListIntent);
 		}
 
@@ -209,6 +210,11 @@ public class DegreeListActivity extends FragmentActivity implements
 		case R.id.degree_menu_item_refresh:
 			refreshDegreeList();
 			return true;
+		case R.id.grades_menu_clear_text_filter:
+			SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SuggestionProvider.AUTHORITY,
+					SuggestionProvider.MODE);
+			suggestions.clearHistory();
+			return true;
 		case R.id.grades_menu_item_settings:
 		case R.id.degree_menu_item_settings:
 			intent = new Intent(this, SettingsActivity.class);
@@ -239,14 +245,22 @@ public class DegreeListActivity extends FragmentActivity implements
 		PopupMenu popup = new PopupMenu(this, v);
 		MenuInflater inflater = popup.getMenuInflater();
 		popup.setOnMenuItemClickListener(this);
-		inflater.inflate(R.menu.popup_menu, popup.getMenu());
 		MenuItem item;
-		if (DegreeContent.FILTER_MENU_SELECTION == 0) {
-			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
+		inflater.inflate(R.menu.popup_menu, popup.getMenu());
+		if (!DegreeContent.EXAM_TEXT_FILTER.equals("")) {
+			String title = getString(R.string.popup_filter_menu_item_text, DegreeContent.EXAM_TEXT_FILTER);
+			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter);
+			item.setTitle(title);
 		} else {
-			item = popup.getMenu()
-					.findItem(DegreeContent.FILTER_MENU_SELECTION);
+			// inflater.inflate(R.menu.popup_menu, popup.getMenu());
+			popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter).setVisible(false);
+			if (DegreeContent.FILTER_MENU_SELECTION == 0) {
+				item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
+			} else {
+				item = popup.getMenu().findItem(DegreeContent.FILTER_MENU_SELECTION);
+			}
 		}
+
 		item.setChecked(true);
 		popup.show();
 	}
@@ -274,9 +288,10 @@ public class DegreeListActivity extends FragmentActivity implements
 			return false;
 		}
 		DegreeContent.FILTER = filter;
+		DegreeContent.EXAM_TEXT_FILTER = "";
 
-		((GradesListFragment) getSupportFragmentManager().findFragmentById(
-				R.id.degree_detail_container)).updateGradeList(filter);
+		((GradesListFragment) getSupportFragmentManager().findFragmentById(R.id.degree_detail_container))
+				.updateGradeList(filter);
 
 		// getSupportFragmentManager().beginTransaction()
 		// .replace(R.id.degree_detail_container, new
@@ -323,31 +338,29 @@ public class DegreeListActivity extends FragmentActivity implements
 		} else {
 			dialog.setMessage(getText(R.string.refreh_failed));
 		}
-		dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
-				new OnClickListener() {
+		dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
 
-						DegreeListFragment degreeFragment = ((DegreeListFragment) getSupportFragmentManager()
-								.findFragmentById(R.id.degree_list));
-						if (null != degreeFragment) {
-							degreeFragment.refreshListView();
-						}
+				DegreeListFragment degreeFragment = ((DegreeListFragment) getSupportFragmentManager().findFragmentById(
+						R.id.degree_list));
+				if (null != degreeFragment) {
+					degreeFragment.refreshListView();
+				}
 
-						if (m_twoPane) {
-							// refresh grades list view and without requesting
-							// new grades from QIS
-							GradesListFragment gradesFragment = ((GradesListFragment) getSupportFragmentManager()
-									.findFragmentById(
-											R.id.degree_detail_container));
-							if (null != gradesFragment) {
-								gradesFragment.refreshListView(false);
-							}
-						}
+				if (m_twoPane) {
+					// refresh grades list view and without requesting
+					// new grades from QIS
+					GradesListFragment gradesFragment = ((GradesListFragment) getSupportFragmentManager()
+							.findFragmentById(R.id.degree_detail_container));
+					if (null != gradesFragment) {
+						gradesFragment.refreshListView(false);
 					}
-				});
+				}
+			}
+		});
 		dialog.show();
 	}
 }
