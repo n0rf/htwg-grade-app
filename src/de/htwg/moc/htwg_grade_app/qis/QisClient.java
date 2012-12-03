@@ -184,13 +184,13 @@ public class QisClient {
 		// index 6 = passed/state
 		// index 7 = notes
 		// index 8 = attampt
-		Grade grade = new Grade(matches[0], matches[2], matches[1]);
+		Grade grade = new Grade(matches[0], matches[2], matches[3]);
 		if (matches[2].contains("(S)")) {
 			grade.setCertOnly(true);
 		} else {
 			grade.setCertOnly(false);
 		}
-		grade.setSemester(matches[3]);
+		grade.setExamNumber(matches[1]);
 		String ects = matches[4];
 		if (!ects.trim().equals("")) {
 			try {
