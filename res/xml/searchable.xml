@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:hint="@string/grade_search_hint"
+    android:inputType="text"
     android:label="@string/app_name"
-    android:hint="@string/grade_search_hint" >
+    android:searchSuggestAuthority="de.htwg.moc.htwg_grade_app.searchable.SuggestionProvider"
+    android:searchSuggestSelection=" ?"
+    android:voiceLanguage="de"
+    android:voiceLanguageModel="free_form"
+    android:voicePromptText="@string/voice_search"
+    android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" >
+
 </searchable>
