@@ -138,6 +138,6 @@ public class Grade {
 	}
 	
 	public String toString() {
-		return m_examText + m_grade;
+		return m_examText + " " + m_grade;
 	}
 }
