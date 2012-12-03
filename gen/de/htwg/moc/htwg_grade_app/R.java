@@ -11,34 +11,57 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int ic_menu_moreoverflow_normal_holo_light=0x7f020001;
-        public static final int ic_menu_refresh=0x7f020002;
-        public static final int ic_menu_search_holo_light=0x7f020003;
-        public static final int ic_search_category_default=0x7f020004;
+        public static final int grades_detail_border=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int ic_menu_moreoverflow_normal_holo_light=0x7f020002;
+        public static final int ic_menu_refresh=0x7f020003;
+        public static final int ic_menu_search_holo_light=0x7f020004;
+        public static final int ic_search_category_default=0x7f020005;
     }
     public static final class id {
         public static final int degree_detail_container=0x7f080001;
         public static final int degree_list=0x7f080000;
-        public static final int degree_menu_item_refresh=0x7f08000f;
-        public static final int degree_menu_item_settings=0x7f080010;
+        public static final int degree_menu_item_refresh=0x7f080024;
+        public static final int degree_menu_item_settings=0x7f080025;
+        public static final int gradeDetailTextAttempts=0x7f080015;
+        public static final int gradeDetailTextECTS=0x7f08000b;
+        public static final int gradeDetailTextExamNumber=0x7f080005;
+        public static final int gradeDetailTextExamText=0x7f080007;
+        public static final int gradeDetailTextGrade=0x7f08000d;
+        public static final int gradeDetailTextNotes=0x7f080013;
+        public static final int gradeDetailTextProgram=0x7f080004;
+        public static final int gradeDetailTextSemester=0x7f080009;
+        public static final int gradeDetailTextState=0x7f080011;
+        public static final int gradeDetailTextType=0x7f08000f;
+        public static final int grade_detail_attempts=0x7f080016;
         public static final int grade_detail_container=0x7f080002;
-        public static final int grade_item_ects=0x7f08000a;
-        public static final int grade_item_examText=0x7f080008;
-        public static final int grade_item_grade=0x7f080009;
-        public static final int grades_head_1=0x7f080004;
-        public static final int grades_head_2=0x7f080005;
-        public static final int grades_head_3=0x7f080007;
-        public static final int grades_list=0x7f080006;
-        public static final int grades_menu_item_filter=0x7f08000c;
-        public static final int grades_menu_item_refresh=0x7f08000d;
-        public static final int grades_menu_item_search=0x7f08000b;
-        public static final int grades_menu_item_settings=0x7f08000e;
-        public static final int header=0x7f080003;
-        public static final int popup_filter_menu_item_all=0x7f080011;
-        public static final int popup_filter_menu_item_certificates=0x7f080013;
-        public static final int popup_filter_menu_item_grades=0x7f080012;
-        public static final int popup_filter_menu_item_modules=0x7f080014;
+        public static final int grade_detail_ects=0x7f08000c;
+        public static final int grade_detail_exam_number=0x7f080006;
+        public static final int grade_detail_exam_text=0x7f080008;
+        public static final int grade_detail_grade=0x7f08000e;
+        public static final int grade_detail_notes=0x7f080014;
+        public static final int grade_detail_program=0x7f080003;
+        public static final int grade_detail_semester=0x7f08000a;
+        public static final int grade_detail_state=0x7f080012;
+        public static final int grade_detail_type=0x7f080010;
+        public static final int grade_item_ects=0x7f08001e;
+        public static final int grade_item_examText=0x7f08001c;
+        public static final int grade_item_grade=0x7f08001d;
+        public static final int grades_head_1=0x7f080018;
+        public static final int grades_head_2=0x7f080019;
+        public static final int grades_head_3=0x7f08001b;
+        public static final int grades_list=0x7f08001a;
+        public static final int grades_menu_clear_text_filter=0x7f080022;
+        public static final int grades_menu_item_filter=0x7f080020;
+        public static final int grades_menu_item_refresh=0x7f080021;
+        public static final int grades_menu_item_search=0x7f08001f;
+        public static final int grades_menu_item_settings=0x7f080023;
+        public static final int header=0x7f080017;
+        public static final int popup_filter_menu_item_all=0x7f080027;
+        public static final int popup_filter_menu_item_certificates=0x7f080029;
+        public static final int popup_filter_menu_item_grades=0x7f080028;
+        public static final int popup_filter_menu_item_modules=0x7f08002a;
+        public static final int popup_filter_menu_item_textfilter=0x7f080026;
     }
     public static final class layout {
         /** 
@@ -59,11 +82,13 @@ public final class R {
         public static final int activity_degree_list=0x7f030000;
         public static final int activity_degree_twopane=0x7f030001;
         public static final int activity_grade_detail=0x7f030002;
-        public static final int fragment_grades_list=0x7f030003;
-        public static final int fragment_grades_list_twopane=0x7f030004;
-        public static final int grade_item=0x7f030005;
-        public static final int grade_list_item=0x7f030006;
-        public static final int grade_list_item_twopane=0x7f030007;
+        public static final int fragment_grade_details=0x7f030003;
+        public static final int fragment_grade_details_twopane=0x7f030004;
+        public static final int fragment_grades_list=0x7f030005;
+        public static final int fragment_grades_list_twopane=0x7f030006;
+        public static final int grade_item=0x7f030007;
+        public static final int grade_list_item=0x7f030008;
+        public static final int grade_list_item_twopane=0x7f030009;
     }
     public static final class menu {
         public static final int grades_menu=0x7f050001;
@@ -74,32 +99,50 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f060000;
-        public static final int grade_search_hint=0x7f06000d;
-        public static final int grades_head_ects=0x7f06000c;
-        public static final int grades_head_examText=0x7f06000a;
-        public static final int grades_head_grade=0x7f06000b;
-        public static final int grades_menu_item_filter=0x7f060005;
-        public static final int grades_menu_item_search=0x7f060004;
+        public static final int grade_detail_attempts=0x7f060020;
+        public static final int grade_detail_ects=0x7f060018;
+        public static final int grade_detail_exam_number=0x7f060015;
+        public static final int grade_detail_exam_text=0x7f060016;
+        public static final int grade_detail_grade=0x7f060019;
+        public static final int grade_detail_notes=0x7f06001f;
+        /**  Grade details strings 
+         */
+        public static final int grade_detail_program=0x7f060014;
+        public static final int grade_detail_semester=0x7f060017;
+        public static final int grade_detail_state=0x7f06001e;
+        public static final int grade_detail_type=0x7f06001a;
+        public static final int grade_detail_type_certificate=0x7f06001c;
+        public static final int grade_detail_type_graded=0x7f06001d;
+        public static final int grade_detail_type_modul=0x7f06001b;
+        public static final int grade_search_hint=0x7f06000f;
+        public static final int grades_head_ects=0x7f06000e;
+        public static final int grades_head_examText=0x7f06000c;
+        public static final int grades_head_grade=0x7f06000d;
+        public static final int grades_menu_item_filter=0x7f060006;
+        public static final int grades_menu_item_search=0x7f060005;
+        public static final int menu_item_clear_search_filter=0x7f060004;
         public static final int menu_item_refresh=0x7f060002;
         public static final int menu_item_settings=0x7f060003;
-        public static final int popup_filter_menu_item_all=0x7f060006;
-        public static final int popup_filter_menu_item_certificates=0x7f060008;
-        public static final int popup_filter_menu_item_grades=0x7f060007;
-        public static final int popup_filter_menu_item_modules=0x7f060009;
-        public static final int pref_header_general=0x7f060018;
-        public static final int pref_password_default=0x7f060016;
-        public static final int pref_password_key=0x7f060017;
-        public static final int pref_password_title=0x7f060015;
-        public static final int pref_username_default=0x7f060013;
-        public static final int pref_username_key=0x7f060014;
+        public static final int popup_filter_menu_item_all=0x7f060008;
+        public static final int popup_filter_menu_item_certificates=0x7f06000a;
+        public static final int popup_filter_menu_item_grades=0x7f060009;
+        public static final int popup_filter_menu_item_modules=0x7f06000b;
+        public static final int popup_filter_menu_item_text=0x7f060007;
+        public static final int pref_header_general=0x7f060028;
+        public static final int pref_password_default=0x7f060026;
+        public static final int pref_password_key=0x7f060027;
+        public static final int pref_password_title=0x7f060025;
+        public static final int pref_username_default=0x7f060023;
+        public static final int pref_username_key=0x7f060024;
         /**  Strings related to Settings 
          */
-        public static final int pref_username_title=0x7f060012;
-        public static final int refreh_failed=0x7f060010;
-        public static final int refreh_loading=0x7f06000e;
-        public static final int refreh_success=0x7f06000f;
-        public static final int title_activity_settings=0x7f060011;
+        public static final int pref_username_title=0x7f060022;
+        public static final int refreh_failed=0x7f060013;
+        public static final int refreh_loading=0x7f060011;
+        public static final int refreh_success=0x7f060012;
+        public static final int title_activity_settings=0x7f060021;
         public static final int title_degree_detail=0x7f060001;
+        public static final int voice_search=0x7f060010;
     }
     public static final class style {
         /** 
