@@ -3,7 +3,7 @@
     <PreferenceCategory android:key="pref_user_settings" >
         <EditTextPreference
             android:defaultValue="@string/pref_username_default"
-            android:inputType="textCapWords"
+            android:inputType="text"
             android:key="@string/pref_username_key"
             android:maxLines="1"
             android:selectAllOnFocus="true"
