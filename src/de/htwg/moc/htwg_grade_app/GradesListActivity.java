@@ -73,7 +73,7 @@ public class GradesListActivity extends FragmentActivity implements
 			m_fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.grade_detail_container, m_fragment).commit();
-
+			
 			// Get the intent, verify the action and get the query
 			handleIntent(getIntent());
 		}
@@ -89,9 +89,9 @@ public class GradesListActivity extends FragmentActivity implements
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String examText = intent.getStringExtra(SearchManager.QUERY);
 
-			GradesListFragment fragment = ((GradesListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.grade_detail_container));
-			//fragment.setTextFilter(examText);
+			GradesListFragment fragment = ((GradesListFragment) getSupportFragmentManager()
+					.findFragmentById(R.id.grade_detail_container));
+			// fragment.setTextFilter(examText);
 			fragment.updateGradeList(examText);
 		}
 	}
@@ -125,7 +125,6 @@ public class GradesListActivity extends FragmentActivity implements
 			showPopup(findViewById(R.id.grades_menu_item_filter));
 			return true;
 		case R.id.grades_menu_item_refresh:
-			// TODO: show loading activity (over both fragments if necessary)
 			refreshGradesListView();
 			return true;
 		case R.id.grades_menu_item_settings:
@@ -148,13 +147,22 @@ public class GradesListActivity extends FragmentActivity implements
 		PopupMenu popup = new PopupMenu(this, v);
 		MenuInflater inflater = popup.getMenuInflater();
 		popup.setOnMenuItemClickListener(this);
-		inflater.inflate(R.menu.popup_menu, popup.getMenu());
 		MenuItem item;
-		if (DegreeContent.FILTER_MENU_SELECTION == 0) {
-			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
+		inflater.inflate(R.menu.popup_menu, popup.getMenu());
+		if (!DegreeContent.EXAM_TEXT_FILTER.equals("")) {
+			String title = getString(R.string.popup_filter_menu_item_text, DegreeContent.EXAM_TEXT_FILTER);
+			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter);
+			item.setTitle(title);
 		} else {
-			item = popup.getMenu().findItem(DegreeContent.FILTER_MENU_SELECTION);
+			//inflater.inflate(R.menu.popup_menu, popup.getMenu());
+			popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter).setVisible(false);
+			if (DegreeContent.FILTER_MENU_SELECTION == 0) {
+				item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
+			} else {
+				item = popup.getMenu().findItem(DegreeContent.FILTER_MENU_SELECTION);
+			}
 		}
+		
 		item.setChecked(true);
 		popup.show();
 	}
