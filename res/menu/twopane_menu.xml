@@ -12,6 +12,9 @@
 		android:icon="@drawable/ic_menu_refresh"
 		android:title="@string/menu_item_refresh"
 		android:showAsAction="ifRoom" />
+    <item android:id="@+id/grades_menu_clear_text_filter"
+        android:title="@string/menu_item_clear_search_filter"
+		android:showAsAction="never"/>
     <item android:id="@+id/degree_menu_item_settings"
 		android:title="@string/menu_item_settings"
 		android:showAsAction="never" />
