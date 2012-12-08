@@ -21,7 +21,7 @@
     <string name="grades_head_ects">ECTS</string>
     
     <string name="grade_search_hint">Exam text</string>
-    <string name="voice_search">insert voice search</string>
+    <string name="voice_search">Insert voice search</string>
     
     <string name="refreh_loading">Loading degrees and grades, please wait.</string>
     <string name="refreh_success">Successfully loaded degrees and grades!</string>
@@ -42,5 +42,16 @@
     <string name="grade_detail_state">State</string>
     <string name="grade_detail_notes">Notes</string>
     <string name="grade_detail_attempts">Attempts</string>
+    
+   	<!-- Loading details -->
+    <string name="load_no_login">No Login data available.</string>
+    <string name="load_try_login">Logging in!</string>
+    <string name="load_login_failed">Failed to log in!</string>
+    <string name="load_lookup_link">Looking for score link.</string>
+    <string name="load_lookup_link_failed">Could not find score link!</string>
+    <string name="load_add_degrees">Add Degrees.</string>
+    <string name="load_no_degrees_found">Could not find any degrees!</string>
+    <string name="load_degrees_add_success">Degrees and grades successfully added!</string>
+    <string name="load_internal_error">Internal error while loading data!</string>
 
 </resources>
