@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">HTWG Grade App</string>
+    <string name="title_degree_detail">Noten von Abschluss: %1$s</string>
+    <string name="menu_item_refresh">Aktualisieren</string>
+    <string name="menu_item_settings">Einstellungen</string>
+    <string name="menu_item_clear_search_filter">Suchverlauf löschen</string>
+    
+    <string name="grades_menu_item_search">Suche</string>
+    <string name="grades_menu_item_filter">Filter</string>
+    
+    <string name="popup_filter_menu_item_text">Suchfilter: %1$s</string>
+    <string name="popup_filter_menu_item_all">Alle</string>
+    <string name="popup_filter_menu_item_grades">Benotet</string>
+    <string name="popup_filter_menu_item_certificates">Schein</string>
+    <string name="popup_filter_menu_item_modules">Modul</string>
+    
+    <string name="grades_head_examText">Prüfungstext</string>
+    <string name="grades_head_grade">Note</string>
+    <string name="grades_head_ects">ECTS</string>
+    
+    <string name="grade_search_hint">Prüfungstext</string>
+    <string name="voice_search">Spracheingabe zur Suche</string>
+    
+    <string name="refreh_loading">Abschlüsse und Noten werden geladen, bitte warten.</string>
+    <string name="refreh_success">Abschlüsse und Noten erfolgreich geladen!</string>
+    <string name="refreh_failed">Fehler beim Laden von Abschlüssen und Noten!</string>
+    
+    
+    <!-- Grade details strings -->
+    <string name="grade_detail_program">Program</string>
+    <string name="grade_detail_exam_number">Exam Number</string>
+    <string name="grade_detail_exam_text">Exam Text</string>
+    <string name="grade_detail_semester">Semester</string>
+    <string name="grade_detail_ects">ECTS</string>
+    <string name="grade_detail_grade">Grade</string>
+    <string name="grade_detail_type">Type</string>
+    <string name="grade_detail_type_modul">Modul</string>
+    <string name="grade_detail_type_certificate">Certificate</string>
+    <string name="grade_detail_type_graded">Graded</string>
+    <string name="grade_detail_state">State</string>
+    <string name="grade_detail_notes">Notes</string>
+    <string name="grade_detail_attempts">Attempts</string>
+    
+    <!-- Loading details -->
+    <string name="load_no_login">Keine Logindaten vorhanden.</string>
+    <string name="load_try_login">Einloggen!</string>
+    <string name="load_login_failed">Login fehlgeschlagen!</string>
+    <string name="load_lookup_link">Link des Notenspiegels wird abgerufen.</string>
+    <string name="load_lookup_link_failed">Link zum Notenspiegel nicht gefunden!</string>
+    <string name="load_add_degrees">Abschlüsse hinzufügen.</string>
+    <string name="load_no_degrees_found">Keine Abschlüsse gefunden!</string>
+    <string name="load_degrees_add_success">Abschlüsse und Noten erfolgreich hinzugefügt!</string>
+    <string name="load_internal_error">Interner Fehler während dem Laden der Daten!</string>
+
+</resources>
