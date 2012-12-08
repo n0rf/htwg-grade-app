@@ -12,11 +12,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import de.htwg.moc.htwg_grade_app.adapter.GradeListAdapter;
@@ -45,8 +49,6 @@ public class GradesListFragment extends Fragment {
 	private Degree m_degree = null;
 
 	private ArrayList<Grade> m_filteredGrades = new ArrayList<Grade>();
-
-	// private String m_examTextFilter = "";
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -136,7 +138,6 @@ public class GradesListFragment extends Fragment {
 
 	public void updateGradeList(String examText) {
 		DegreeContent.FILTER = GradesFilter.ALL;
-		// this.m_examTextFilter = examText;
 		DegreeContent.EXAM_TEXT_FILTER = examText;
 
 		if (!m_selectedDegree.equals("") && null != m_degree && null != m_rootView) {
@@ -202,11 +203,6 @@ public class GradesListFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		m_rootView = inflater.inflate(R.layout.fragment_grades_list, container, false);
 
-		// Show the dummy content as text in a TextView.
-		// if (mItem != null) {
-		// ((TextView) rootView.findViewById(R.id.degree_detail))
-		// .setText(mItem.content);
-		// }
 		final Bundle instanceState = savedInstanceState;
 		final ViewGroup cont = container;
 
@@ -216,7 +212,8 @@ public class GradesListFragment extends Fragment {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					//HashMap<String, String> item = (HashMap<String, String>) lv.getItemAtPosition(position);
+					// HashMap<String, String> item = (HashMap<String, String>)
+					// lv.getItemAtPosition(position);
 					Grade grade = m_filteredGrades.get(position);
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(m_rootView.getContext());
@@ -251,7 +248,6 @@ public class GradesListFragment extends Fragment {
 					// dialog.dismiss();
 					// }
 					// })
-					
 
 					AlertDialog alert = builder.create();
 
@@ -271,11 +267,6 @@ public class GradesListFragment extends Fragment {
 
 		return m_rootView;
 	}
-
-	// public void setTextFilter(String examText) {
-	// this.m_examTextFilter = examText;
-	// updateGradeList(examText);
-	// }
 
 	public void refreshListView(boolean requestNewGrades) {
 		if ("" != m_selectedDegree) {
@@ -300,5 +291,57 @@ public class GradesListFragment extends Fragment {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Method shows the popup menu with settings and other items.
+	 */
+	public void showPopup(Activity context, View v) {
+		PopupMenu popup = new PopupMenu(context, v);
+		MenuInflater inflater = popup.getMenuInflater();
+		popup.setOnMenuItemClickListener((OnMenuItemClickListener) context);
+		MenuItem item;
+		inflater.inflate(R.menu.popup_menu, popup.getMenu());
+		if (!DegreeContent.EXAM_TEXT_FILTER.equals("")) {
+			String title = getString(R.string.popup_filter_menu_item_text, DegreeContent.EXAM_TEXT_FILTER);
+			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter);
+			item.setTitle(title);
+		} else {
+			// inflater.inflate(R.menu.popup_menu, popup.getMenu());
+			popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter).setVisible(false);
+			if (DegreeContent.FILTER_MENU_SELECTION == 0) {
+				item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
+			} else {
+				item = popup.getMenu().findItem(DegreeContent.FILTER_MENU_SELECTION);
+			}
+		}
+
+		item.setChecked(true);
+		popup.show();
+	}
+
+	public void filterMenuItemClicked(MenuItem item) {
+		item.setChecked(true);
+		DegreeContent.FILTER_MENU_SELECTION = item.getItemId();
+
+		GradesFilter filter = GradesFilter.ALL;
+		switch (item.getItemId()) {
+		case R.id.popup_filter_menu_item_all:
+			filter = GradesFilter.ALL;
+			break;
+		case R.id.popup_filter_menu_item_grades:
+			filter = GradesFilter.GRADED;
+			break;
+		case R.id.popup_filter_menu_item_certificates:
+			filter = GradesFilter.CERTIFICATES;
+			break;
+		case R.id.popup_filter_menu_item_modules:
+			filter = GradesFilter.MODULES;
+			break;
+		}
+		DegreeContent.FILTER = filter;
+		DegreeContent.EXAM_TEXT_FILTER = "";
+		
+		updateGradeList(filter);
 	}
 }
