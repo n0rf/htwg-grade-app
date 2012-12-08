@@ -12,7 +12,7 @@ import de.htwg.moc.htwg_grade_app.dos.Grade;
 import de.htwg.moc.htwg_grade_app.dos.GradesFilter;
 
 /**
- * Helper class for providing degree and grade data.
+ * Helper class for providing degree and grade data as well as temporary used filter options.
  */
 public class DegreeContent {
 
@@ -20,7 +20,7 @@ public class DegreeContent {
 
 	public static GradesFilter FILTER = GradesFilter.ALL;
 
-	/** List of dummy degrees */
+	/** List of degrees */
 	public static Map<String, Degree> DEGREES = new HashMap<String, Degree>();
 
 	public static List<Degree> DEGREE_LIST = new ArrayList<Degree>();
@@ -29,6 +29,7 @@ public class DegreeContent {
 	
 	public static boolean isRequesting = false;
 
+	// TODO: remove test data!
 //	static {
 //		// some sample degrees and grades
 //		Degree bachelor = new Degree("84", "Bachelor");
@@ -56,49 +57,8 @@ public class DegreeContent {
 //		DEGREE_LIST.add(master);
 //	}
 
-	public static AsyncTask<String, String, Boolean> loadData(DegreeListActivity activity, String user, String password) {
+	public static AsyncTask<String, Integer, Boolean> loadData(DegreeListActivity activity, String user, String password) {
 		isRequesting = true;
 		 return new QisRequest(activity).execute(user, password);
 	}
-
-	// /**
-	// * An array of sample (dummy) items.
-	// */
-	// public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
-	//
-	// /**
-	// * A map of sample (dummy) items, by ID.
-	// */
-	// public static Map<String, DummyItem> ITEM_MAP = new HashMap<String,
-	// DummyItem>();
-	//
-	// static {
-	// // Add 3 sample items.
-	// addItem(new DummyItem("1", "Item 1"));
-	// addItem(new DummyItem("2", "Item 2"));
-	// addItem(new DummyItem("3", "Item 3"));
-	// }
-	//
-	// private static void addItem(DummyItem item) {
-	// ITEMS.add(item);
-	// ITEM_MAP.put(item.id, item);
-	// }
-	//
-	// /**
-	// * A dummy item representing a piece of content.
-	// */
-	// public static class DummyItem {
-	// public String id;
-	// public String content;
-	//
-	// public DummyItem(String id, String content) {
-	// this.id = id;
-	// this.content = content;
-	// }
-	//
-	// @Override
-	// public String toString() {
-	// return content;
-	// }
-	// }
 }
