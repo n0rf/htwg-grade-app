@@ -15,6 +15,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
@@ -27,11 +28,13 @@ import de.htwg.moc.htwg_grade_app.dos.Grade;
 public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 	private Context appContext;
+	// TODO: is it the right way to notify the activity about the finished
+	// process by giving the activity to the async task?
 	private DegreeListActivity activity;
 
-	private AlertDialog m_dialog;
 	private Builder m_builder;
-	
+	private ProgressDialog m_progressDialog;
+
 	private String m_latestMessage = "";
 
 	/**
@@ -39,7 +42,8 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 	 */
 	public QisRequest(Context context) {
 		this.activity = (DegreeListActivity) context;
-		this.appContext = context.getApplicationContext();
+		this.appContext = context;
+		m_builder = new AlertDialog.Builder(activity);
 	}
 
 	@Override
@@ -72,36 +76,39 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 	@Override
 	protected void onProgressUpdate(Integer... progressInfo) {
+		super.onProgressUpdate(progressInfo);
 		try {
 			m_latestMessage = appContext.getString(progressInfo[0]);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		m_dialog.setMessage(m_latestMessage);
+		m_progressDialog.setMessage(m_latestMessage);
 	}
 
 	@Override
 	protected void onPreExecute() {
 		super.onPreExecute();
-		
-		m_builder = new AlertDialog.Builder(activity);
-		m_dialog = m_builder.create();
-		m_dialog.setMessage(appContext.getString(R.string.refreh_loading));
-		m_dialog.setCanceledOnTouchOutside(false);
-		m_dialog.show();
+
+		m_progressDialog = ProgressDialog.show(appContext, appContext.getString(R.string.refreh_loading), "...");
+		// m_builder = new AlertDialog.Builder(activity);
+		// m_dialog = m_builder.create();
+		// m_dialog.setMessage(appContext.getString(R.string.refreh_loading));
+		// m_dialog.setCanceledOnTouchOutside(false);
+		// m_dialog.show();
 	}
 
 	@Override
 	protected void onPostExecute(Boolean result) {
+		super.onPostExecute(result);
+
 		DegreeContent.isRequesting = false;
-		m_dialog.dismiss();
+		m_progressDialog.dismiss();
 		if (result) {
 			activity.refreshView();
 		} else {
-			m_dialog = m_builder.create();
-			//m_dialog.setMessage(appContext.getString(R.string.refreh_failed));
-			m_dialog.setMessage(m_latestMessage);
-			m_dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new OnClickListener() {
+			AlertDialog dialog = m_builder.create();
+			dialog.setMessage(m_latestMessage);
+			dialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK", new OnClickListener() {
 
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -109,7 +116,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 					activity.refreshView();
 				}
 			});
-			m_dialog.show();
+			dialog.show();
 		}
 	}
 
@@ -135,7 +142,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 		public List<Degree> getDegrees() {
 			return m_degrees;
 		}
-		
+
 		private String getGradesLink() {
 
 			String html = getHtml("rds?state=change&type=1&moduleParameter=studyPOSMenu&nextdir=change&next=menu.vm&"
@@ -165,9 +172,9 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 					Degree degree = new Degree(name[0], name[1]);
 
 					degLink = degLink.replaceAll("&amp;", "&");
-					
+
 					String degHtml = getHtml(degLink);
-					
+
 					Matcher degM = Pattern.compile("<tr>\\s+(<.+?>)\\s+</tr>", Pattern.MULTILINE | Pattern.DOTALL)
 							.matcher(degHtml);
 					while (degM.find()) {
