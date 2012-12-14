@@ -1,6 +1,6 @@
 package de.htwg.moc.htwg_grade_app.dos;
 
-public class Grade {
+public class Grade implements Comparable<Grade> {
 	private String m_program;
 	private String m_examNumber;
 	private String m_examText;
@@ -30,8 +30,7 @@ public class Grade {
 		m_modul = false;
 	}
 
-	public Grade(String program, String examText, String semester,
-			double grade, boolean modul) {
+	public Grade(String program, String examText, String semester, double grade, boolean modul) {
 		this.m_program = program;
 		this.m_examText = examText;
 		this.m_semester = semester;
@@ -136,8 +135,26 @@ public class Grade {
 	public void setAttempt(int attempt) {
 		this.m_attempt = attempt;
 	}
-	
+
+	@Override
 	public String toString() {
 		return m_examText + " " + m_grade;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof Grade) {
+			return this.m_examText.equals(((Grade) o).getExamText());
+		}
+		return false;
+	}
+
+	public int hashCode() {
+		return this.getExamText().hashCode();
+	}
+
+	@Override
+	public int compareTo(Grade another) {
+		return this.m_examText.compareTo(another.getExamText());
 	}
 }

@@ -1,7 +1,7 @@
 package de.htwg.moc.htwg_grade_app.dos;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Class representing a Degree.
@@ -12,7 +12,7 @@ import java.util.List;
 public class Degree {
 	private String m_number;
 	private String m_name;
-	private List<Grade> m_grades = new ArrayList<Grade>();
+	private SortedSet<Grade> m_grades = new TreeSet<Grade>();
 
 	public Degree(String number, String name) {
 		this.m_number = number;
@@ -35,11 +35,11 @@ public class Degree {
 		this.m_name = name;
 	}
 
-	public List<Grade> getGrades() {
+	public SortedSet<Grade> getGrades() {
 		return m_grades;
 	}
 
-	public void setGrades(List<Grade> grades) {
+	public void setGrades(SortedSet<Grade> grades) {
 		this.m_grades = grades;
 	}
 
@@ -47,6 +47,7 @@ public class Degree {
 		m_grades.add(grade);
 	}
 
+	@Override
 	public String toString() {
 		return m_number + " " + m_name;
 	}
