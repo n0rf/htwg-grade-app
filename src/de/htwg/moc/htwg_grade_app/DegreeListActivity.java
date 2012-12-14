@@ -1,7 +1,5 @@
 package de.htwg.moc.htwg_grade_app;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -48,7 +46,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_degree_list);
 
-		refreshDegreeList();
+		refreshDegreeList(true);
 
 		if (findViewById(R.id.degree_detail_container) != null) {
 			// The detail container view will be present only in the
@@ -66,12 +64,10 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 		}
 	}
 
-	private void refreshDegreeList() {
+	private void refreshDegreeList(boolean careAboutCurrent) {
 		if (!DegreeContent.isRequesting) {
 			// check settings and refresh view with new data:
 			SharedPreferences settings = getSharedPreferences(SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
-			// SharedPreferences settings =
-			// PreferenceManager.getDefaultSharedPreferences(this);
 			String user = settings.getString(SettingsActivity.KEY_PREF_USERNAME, "");
 			String password = settings.getString(SettingsActivity.KEY_PREF_PASSWORD, "");
 
@@ -80,7 +76,9 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 				this.startActivity(intent);
 			} else {
 				//AsyncTask<String, String, Boolean> task =
-				DegreeContent.loadData(DegreeListActivity.this, user, password);
+				if (!careAboutCurrent || (careAboutCurrent && DegreeContent.DEGREE_LIST.isEmpty())) {
+					DegreeContent.loadData(DegreeListActivity.this, user, password);
+				}
 			}
 		}
 	}
@@ -159,7 +157,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 			}
 			return true;
 		case R.id.degree_menu_item_refresh:
-			refreshDegreeList();
+			refreshDegreeList(false);
 			return true;
 		case R.id.grades_menu_clear_text_filter:
 			SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SuggestionProvider.AUTHORITY,
