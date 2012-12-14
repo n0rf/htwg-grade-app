@@ -49,7 +49,7 @@
     <string name="load_login_failed">Login fehlgeschlagen!</string>
     <string name="load_lookup_link">Link des Notenspiegels wird abgerufen.</string>
     <string name="load_lookup_link_failed">Link zum Notenspiegel nicht gefunden!</string>
-    <string name="load_add_degrees">Abschlüsse hinzufügen.</string>
+    <string name="load_add_degrees">Abschlüsse hinzufügen&#8230;</string>
     <string name="load_no_degrees_found">Keine Abschlüsse gefunden!</string>
     <string name="load_degrees_add_success">Abschlüsse und Noten erfolgreich hinzugefügt!</string>
     <string name="load_internal_error">Interner Fehler während dem Laden der Daten!</string>

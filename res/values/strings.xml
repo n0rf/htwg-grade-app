@@ -49,7 +49,7 @@
     <string name="load_login_failed">Failed to log in!</string>
     <string name="load_lookup_link">Looking for score link.</string>
     <string name="load_lookup_link_failed">Could not find score link!</string>
-    <string name="load_add_degrees">Add Degrees.</string>
+    <string name="load_add_degrees">Add Degrees&#8230;</string>
     <string name="load_no_degrees_found">Could not find any degrees!</string>
     <string name="load_degrees_add_success">Degrees and grades successfully added!</string>
     <string name="load_internal_error">Internal error while loading data!</string>
