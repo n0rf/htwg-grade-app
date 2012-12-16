@@ -42,6 +42,8 @@
     <string name="grade_detail_state">State</string>
     <string name="grade_detail_notes">Notes</string>
     <string name="grade_detail_attempts">Attempts</string>
+    <string name="share_button">Share</string>
+    <string name="share_button_text">Schaut euch das an, meine Note in %1$s: %2$s!</string>
     
     <!-- Loading details -->
     <string name="load_no_login">Keine Logindaten vorhanden.</string>

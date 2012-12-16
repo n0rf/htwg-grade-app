@@ -18,7 +18,7 @@
         android:layout_height="fill_parent"
         android:width="80dp"
         android:textSize="20sp"
-        android:textColor="#FF666666"
+        android:textColor="#CC666666"
         android:gravity="left" />
     
     <TextView

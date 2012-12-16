@@ -15,9 +15,11 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
@@ -193,9 +195,7 @@ public class GradesListFragment extends Fragment {
 			// fill in the grid_item layout
 			SimpleAdapter adapter = new GradeListAdapter(getActivity(), fillMaps, grades, R.layout.grade_list_item,
 					from, to);
-			// adapter.notifyDataSetChanged();
 			lv.setAdapter(adapter);
-			// lv.invalidateViews();
 		}
 	}
 
@@ -212,9 +212,7 @@ public class GradesListFragment extends Fragment {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					// HashMap<String, String> item = (HashMap<String, String>)
-					// lv.getItemAtPosition(position);
-					Grade grade = m_filteredGrades.get(position);
+					final Grade grade = m_filteredGrades.get(position);
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(m_rootView.getContext());
 					LayoutInflater inflater = getLayoutInflater(instanceState);
@@ -240,20 +238,25 @@ public class GradesListFragment extends Fragment {
 					((TextView) v.findViewById(R.id.grade_detail_attempts)).setText(String.valueOf(grade.getAttempt()));
 
 					builder.setView(v).setCancelable(true);
-					// .setPositiveButton("OK", new
-					// DialogInterface.OnClickListener() {
-					//
-					// @Override
-					// public void onClick(DialogInterface dialog, int id) {
-					// dialog.dismiss();
-					// }
-					// })
+
+					((Button) v.findViewById(R.id.share_button)).setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							Intent i = new Intent(android.content.Intent.ACTION_SEND);
+
+							i.setType("text/plain");
+							i.putExtra(Intent.EXTRA_TEXT,
+									getString(R.string.share_button_text, grade.getExamText(), grade.getGrade()));
+
+							startActivity(Intent.createChooser(i,
+									getString(R.string.share_button_text, grade.getExamText(), grade.getGrade())));
+						}
+					});
 
 					AlertDialog alert = builder.create();
 
 					alert.show();
-
-					// TODO: show information about the grade!
 				}
 			});
 		}
@@ -273,14 +276,6 @@ public class GradesListFragment extends Fragment {
 			if (requestNewGrades) {
 				Intent intent = new Intent(getActivity(), DegreeListActivity.class);
 				startActivity(intent);
-
-				// TODO: request grades and degrees on degree activity and
-				// update fragment/activity
-				// TODO: Single pane: if selected degree is still in list,
-				// update view with this data!
-				// TODO: Two pane: use degree list activity for update process
-				// TODO: in all cases: checked grade still there?
-				// m_degree = DegreeContent.DEGREES.get(m_selectedDegree);
 			} else {
 
 				// show the filtered degree details
@@ -341,7 +336,7 @@ public class GradesListFragment extends Fragment {
 		}
 		DegreeContent.FILTER = filter;
 		DegreeContent.EXAM_TEXT_FILTER = "";
-		
+
 		updateGradeList(filter);
 	}
 }
