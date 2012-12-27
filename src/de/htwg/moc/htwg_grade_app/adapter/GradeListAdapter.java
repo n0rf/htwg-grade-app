@@ -36,9 +36,6 @@ public class GradeListAdapter extends SimpleAdapter {
 	  } else {
 		  view.setBackgroundColor(colors[0]);
 	  }
-	  
-	  //int colorPos = position % colors.length;
-	  //view.setBackgroundColor(colors[colorPos]);
 	  return view;
 	}
 

@@ -3,7 +3,9 @@ package de.htwg.moc.htwg_grade_app;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -66,10 +68,10 @@ public class GradesListActivity extends FragmentActivity implements OnMenuItemCl
 		if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			String examText = intent.getStringExtra(SearchManager.QUERY);
 
-			GradesListFragment fragment = ((GradesListFragment) getSupportFragmentManager().findFragmentById(
-					R.id.grade_detail_container));
-			// fragment.setTextFilter(examText);
-			fragment.updateGradeList(examText);
+			Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.grade_detail_container);
+			if (fragment instanceof GradesListFragment) {
+				((GradesListFragment) fragment).updateGradeList(examText);
+			}
 		}
 	}
 
@@ -79,7 +81,7 @@ public class GradesListActivity extends FragmentActivity implements OnMenuItemCl
 		inflater.inflate(R.menu.grades_menu, menu);
 		return true;
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -117,5 +119,17 @@ public class GradesListActivity extends FragmentActivity implements OnMenuItemCl
 	public boolean onMenuItemClick(MenuItem item) {
 		m_fragment.filterMenuItemClicked(item);
 		return true;
+	}
+
+	public void showGradeDetails(String degreeNumber, String examText) {
+		Bundle arguments = new Bundle();
+		arguments.putString(GradeDetailsFragment.ARG_DEGREE_NUMBER, degreeNumber);
+		arguments.putString(GradeDetailsFragment.ARG_GRADE_NAME, examText);
+		GradeDetailsFragment fragment = new GradeDetailsFragment();
+		fragment.setArguments(arguments);
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction().replace(R.id.grade_detail_container,
+				fragment);
+		ft.addToBackStack("gradesList");
+		ft.commit();
 	}
 }

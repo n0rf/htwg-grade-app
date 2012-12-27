@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,16 +14,13 @@ import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import de.htwg.moc.htwg_grade_app.adapter.GradeListAdapter;
 import de.htwg.moc.htwg_grade_app.dos.Degree;
 import de.htwg.moc.htwg_grade_app.dos.Grade;
@@ -67,6 +63,8 @@ public class GradesListFragment extends Fragment {
 
 			// check for selected degree
 			m_selectedDegree = getArguments().getString(ARG_DEGREE_NUMBER);
+			
+			setHasOptionsMenu(true);
 
 			if (DegreeContent.DEGREES.containsKey(m_selectedDegree)) {
 				// if a degree is set, get degree and set title of the view
@@ -75,7 +73,41 @@ public class GradesListFragment extends Fragment {
 			}
 		}
 	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		m_rootView = inflater.inflate(R.layout.fragment_grades_list, container, false);
 
+		final ListView lv = (ListView) m_rootView.findViewById(R.id.grades_list);
+		if (null != lv) {
+			lv.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					
+					String degreeNumber = m_degree.getNumber();
+					String examText = m_filteredGrades.get(position).getExamText();
+					
+					if (getActivity() instanceof DegreeListActivity) {
+						((DegreeListActivity) getActivity()).showGradeDetails(degreeNumber, examText);
+					
+					} else {
+						((GradesListActivity) getActivity()).showGradeDetails(degreeNumber, examText);
+					}
+				}
+			});
+		}
+
+		// show the filtered degree details
+		if (DegreeContent.EXAM_TEXT_FILTER.equals("")) {
+			updateGradeList(DegreeContent.FILTER);
+		} else {
+			updateGradeList(DegreeContent.EXAM_TEXT_FILTER);
+		}
+
+		return m_rootView;
+	}
+	
 	public void updateGradeList(GradesFilter filter) {
 		DegreeContent.FILTER = filter;
 		if (!m_selectedDegree.equals("") && null != m_degree && null != m_rootView) {
@@ -107,7 +139,7 @@ public class GradesListFragment extends Fragment {
 			List<Map<String, String>> fillMaps = new ArrayList<Map<String, String>>();
 			HashMap<String, String> map;
 			List<Grade> grades = new ArrayList<Grade>();
-			for (Grade grade : m_degree.getGrades()) {
+			for (Grade grade : m_degree.getGrades().values()) {
 				if (filter == GradesFilter.ALL || (filter == GradesFilter.MODULES && grade.isModul())
 						|| (filter == GradesFilter.CERTIFICATES && grade.isCertOnly())
 						|| (filter == GradesFilter.GRADED && grade.isGraded())) {
@@ -172,7 +204,7 @@ public class GradesListFragment extends Fragment {
 			HashMap<String, String> map;
 			List<Grade> grades = new ArrayList<Grade>();
 			Locale locale = getResources().getConfiguration().locale;
-			for (Grade grade : m_degree.getGrades()) {
+			for (Grade grade : m_degree.getGrades().values()) {
 				if (grade.getExamText().toLowerCase(locale).contains(examText.toLowerCase(locale))) {
 					m_filteredGrades.add(grade);
 					map = new HashMap<String, String>();
@@ -199,81 +231,10 @@ public class GradesListFragment extends Fragment {
 		}
 	}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		m_rootView = inflater.inflate(R.layout.fragment_grades_list, container, false);
-
-		final Bundle instanceState = savedInstanceState;
-		final ViewGroup cont = container;
-
-		final ListView lv = (ListView) m_rootView.findViewById(R.id.grades_list);
-		if (null != lv) {
-			lv.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					final Grade grade = m_filteredGrades.get(position);
-
-					AlertDialog.Builder builder = new AlertDialog.Builder(m_rootView.getContext());
-					LayoutInflater inflater = getLayoutInflater(instanceState);
-					View v = inflater.inflate(R.layout.fragment_grade_details, cont, false);
-					((TextView) v.findViewById(R.id.grade_detail_program)).setText(grade.getProgram());
-					((TextView) v.findViewById(R.id.grade_detail_exam_number)).setText(grade.getExamNumber());
-					((TextView) v.findViewById(R.id.grade_detail_exam_text)).setText(grade.getExamText());
-					((TextView) v.findViewById(R.id.grade_detail_semester)).setText(grade.getSemester());
-					((TextView) v.findViewById(R.id.grade_detail_ects)).setText(String.valueOf(grade.getEcts()));
-					((TextView) v.findViewById(R.id.grade_detail_grade)).setText(String.valueOf(grade.getGrade()));
-
-					String type = "";
-					if (grade.isModul()) {
-						type = (String) getText(R.string.grade_detail_type_modul);
-					} else if (grade.isCertOnly()) {
-						type = (String) getText(R.string.grade_detail_type_certificate);
-					} else if (grade.isGraded()) {
-						type = (String) getText(R.string.grade_detail_type_graded);
-					}
-					((TextView) v.findViewById(R.id.grade_detail_type)).setText(type);
-					((TextView) v.findViewById(R.id.grade_detail_state)).setText(grade.getState());
-					((TextView) v.findViewById(R.id.grade_detail_notes)).setText(grade.getNotes());
-					((TextView) v.findViewById(R.id.grade_detail_attempts)).setText(String.valueOf(grade.getAttempt()));
-
-					builder.setView(v).setCancelable(true);
-
-					((Button) v.findViewById(R.id.share_button)).setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							Intent i = new Intent(android.content.Intent.ACTION_SEND);
-
-							i.setType("text/plain");
-							i.putExtra(Intent.EXTRA_TEXT,
-									getString(R.string.share_button_text, grade.getExamText(), grade.getGrade()));
-
-							startActivity(Intent.createChooser(i,
-									getString(R.string.share_button_text, grade.getExamText(), grade.getGrade())));
-						}
-					});
-
-					AlertDialog alert = builder.create();
-
-					alert.show();
-				}
-			});
-		}
-
-		// show the filtered degree details
-		if (DegreeContent.EXAM_TEXT_FILTER.equals("")) {
-			updateGradeList(DegreeContent.FILTER);
-		} else {
-			updateGradeList(DegreeContent.EXAM_TEXT_FILTER);
-		}
-
-		return m_rootView;
-	}
-
 	public void refreshListView(boolean requestNewGrades) {
 		if ("" != m_selectedDegree) {
 			if (requestNewGrades) {
+				// TODO: starting intend causes the grades fragment to be in back stack!
 				Intent intent = new Intent(getActivity(), DegreeListActivity.class);
 				startActivity(intent);
 			} else {
