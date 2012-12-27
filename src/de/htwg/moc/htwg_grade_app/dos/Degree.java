@@ -1,18 +1,15 @@
 package de.htwg.moc.htwg_grade_app.dos;
 
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * Class representing a Degree.
- * 
- * @author Andreas
- * 
  */
 public class Degree {
 	private String m_number;
 	private String m_name;
-	private SortedSet<Grade> m_grades = new TreeSet<Grade>();
+	private SortedMap<String, Grade> m_grades = new TreeMap<String, Grade>();
 
 	public Degree(String number, String name) {
 		this.m_number = number;
@@ -35,16 +32,16 @@ public class Degree {
 		this.m_name = name;
 	}
 
-	public SortedSet<Grade> getGrades() {
+	public SortedMap<String, Grade> getGrades() {
 		return m_grades;
 	}
 
-	public void setGrades(SortedSet<Grade> grades) {
+	public void setGrades(SortedMap<String, Grade> grades) {
 		this.m_grades = grades;
 	}
 
 	public void addGrade(Grade grade) {
-		m_grades.add(grade);
+		m_grades.put(grade.getExamText(), grade);
 	}
 
 	@Override

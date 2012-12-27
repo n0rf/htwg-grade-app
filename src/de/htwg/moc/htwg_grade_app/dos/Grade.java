@@ -1,5 +1,8 @@
 package de.htwg.moc.htwg_grade_app.dos;
 
+/**
+ * Class representing a Grade.
+ */
 public class Grade implements Comparable<Grade> {
 	private String m_program;
 	private String m_examNumber;
