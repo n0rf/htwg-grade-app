@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:paddingRight="10sp"
+    android:paddingTop="5sp"
+    android:paddingBottom="5sp" >
 
     <TextView
         android:id="@+id/grade_item_examText"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1.0"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:gravity="left" />
 
     <TextView
@@ -17,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:width="80dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="#CC666666"
         android:gravity="left" />
     
@@ -26,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:width="80dp"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:gravity="left" />
 
 </LinearLayout>
