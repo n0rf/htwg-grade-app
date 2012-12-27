@@ -13,6 +13,7 @@
         android:layout_height="fill_parent"
         android:layout_weight="1.0"
         android:textSize="18sp"
+        android:paddingLeft="10sp"
         android:gravity="left" />
 
     <TextView
@@ -21,6 +22,7 @@
         android:layout_height="fill_parent"
         android:width="80dp"
         android:textSize="18sp"
+        android:paddingLeft="10sp"
         android:textColor="#CC666666"
         android:gravity="left" />
     
@@ -30,6 +32,7 @@
         android:layout_height="fill_parent"
         android:width="80dp"
         android:textSize="18sp"
+        android:paddingLeft="10sp"
         android:gravity="left" />
 
 </LinearLayout>
