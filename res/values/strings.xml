@@ -55,5 +55,11 @@
     <string name="load_no_degrees_found">Could not find any degrees!</string>
     <string name="load_degrees_add_success">Degrees and grades successfully added!</string>
     <string name="load_internal_error">Internal error while loading data!</string>
+    <string name="load_lookup_of_link_failed">Failed to open an internet-link. Please make sure that an internetconnection is established.</string>
+    
+    <!-- Degree list -->
+    <string name="refresh_all">Refresh</string>
+    <string name="user_data">User informationen</string>
+    <string name="user_data_name">User name:</string>
 
 </resources>

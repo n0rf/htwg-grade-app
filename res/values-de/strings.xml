@@ -55,5 +55,11 @@
     <string name="load_no_degrees_found">Keine Abschlüsse gefunden!</string>
     <string name="load_degrees_add_success">Abschlüsse und Noten erfolgreich hinzugefügt!</string>
     <string name="load_internal_error">Interner Fehler während dem Laden der Daten!</string>
+    <string name="load_lookup_of_link_failed">Fehler beim öffnen einer Internetverbindung. Bitte stellen Sie sicher das eine Internetverbindung besteht.</string>
+    
+    <!-- Degree list -->
+    <string name="refresh_all">Aktualisieren</string>
+    <string name="user_data">Benutzer Informationen</string>
+    <string name="user_data_name">Benutzername:</string>
 
 </resources>
