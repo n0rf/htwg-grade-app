@@ -1,11 +1,16 @@
 package de.htwg.moc.htwg_grade_app;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import de.htwg.moc.htwg_grade_app.dos.Degree;
 import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
 
@@ -18,13 +23,15 @@ import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class DegreeListFragment extends ListFragment {
+public class DegreeListFragment extends Fragment {
 
 	/**
 	 * The serialization (saved instance state) Bundle key representing the
 	 * activated item position. Only used on tablets.
 	 */
-	private static final String STATE_ACTIVATED_POSITION = "activated_position";
+	public static final String STATE_ACTIVATED_POSITION = "activated_position";
+
+	public static final String USER = "user";
 
 	/**
 	 * The fragment's current callback object, which is notified of list item
@@ -36,6 +43,12 @@ public class DegreeListFragment extends ListFragment {
 	 * The current activated item position. Only used on tablets.
 	 */
 	private int m_activatedPosition = ListView.INVALID_POSITION;
+
+	private View m_rootView = null;
+
+	private String m_userName = "";
+
+	private int m_listChoiceMode;
 
 	/**
 	 * A callback interface that all activities containing this fragment must
@@ -69,22 +82,45 @@ public class DegreeListFragment extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setListAdapter(new ArrayAdapter<Degree>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DegreeContent.DEGREE_LIST));
 	}
 
 	@Override
-	public void onViewCreated(View view, Bundle savedInstanceState) {
-		super.onViewCreated(view, savedInstanceState);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		m_rootView = inflater.inflate(R.layout.fragment_degree_list, container, false);
+
+		final ListView lv = (ListView) m_rootView.findViewById(R.id.degree_list);
+		lv.setChoiceMode(m_listChoiceMode);
+		lv.setAdapter(new ArrayAdapter<Degree>(getActivity(), android.R.layout.simple_list_item_activated_1,
+				android.R.id.text1, DegreeContent.DEGREE_LIST));
+		if (null != lv) {
+			lv.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+					String number = DegreeContent.DEGREE_LIST.get(position).getNumber();
+					setActivatedPosition(position);
+					m_callbacks.onItemSelected(number);
+				}
+			});
+		}
 
 		// Restore the previously serialized activated item position.
-		if (savedInstanceState != null
-				&& savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
-			setActivatedPosition(savedInstanceState
-					.getInt(STATE_ACTIVATED_POSITION));
+		if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
+			setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
 		}
+
+		if (getArguments().containsKey(STATE_ACTIVATED_POSITION)) {
+			// check for selected degree
+			setActivatedPosition(getArguments().getInt(STATE_ACTIVATED_POSITION));
+		}
+
+		if (getArguments().containsKey(USER)) {
+			m_userName = getArguments().getString(USER);
+		}
+		if (!m_userName.equals("")) {
+			((TextView) m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
+		}
+		return m_rootView;
 	}
 
 	@Override
@@ -93,8 +129,7 @@ public class DegreeListFragment extends ListFragment {
 
 		// Activities containing this fragment must implement its callbacks.
 		if (!(activity instanceof Callbacks)) {
-			throw new IllegalStateException(
-					"Activity must implement fragment's callbacks.");
+			throw new IllegalStateException("Activity must implement fragment's callbacks.");
 		}
 
 		m_callbacks = (Callbacks) activity;
@@ -106,19 +141,6 @@ public class DegreeListFragment extends ListFragment {
 
 		// Reset the active callbacks interface to the dummy implementation.
 		m_callbacks = sDummyCallbacks;
-	}
-
-	@Override
-	public void onListItemClick(ListView listView, View view, int position,
-			long id) {
-		super.onListItemClick(listView, view, position, id);
-
-		// Notify the active callbacks interface (the activity, if the
-		// fragment is attached to one) that an item has been selected.
-		//m_callbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
-		
-		String number = DegreeContent.DEGREE_LIST.get(position).getNumber();
-		m_callbacks.onItemSelected(number);
 	}
 
 	@Override
@@ -137,24 +159,31 @@ public class DegreeListFragment extends ListFragment {
 	public void setActivateOnItemClick(boolean activateOnItemClick) {
 		// When setting CHOICE_MODE_SINGLE, ListView will automatically
 		// give items the 'activated' state when touched.
-		getListView().setChoiceMode(
-				activateOnItemClick ? ListView.CHOICE_MODE_SINGLE
-						: ListView.CHOICE_MODE_NONE);
+		if (null != m_rootView) {
+			ListView lv = (ListView) m_rootView.findViewById(R.id.degree_list);
+			if (null != lv) {
+				lv.setChoiceMode(activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE);
+			}
+		}
+		m_listChoiceMode = activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE;
 	}
 
 	private void setActivatedPosition(int position) {
 		if (position == ListView.INVALID_POSITION) {
-			getListView().setItemChecked(m_activatedPosition, false);
+			((ListView) m_rootView.findViewById(R.id.degree_list)).setItemChecked(m_activatedPosition, false);
 		} else {
-			getListView().setItemChecked(position, true);
+			((ListView) m_rootView.findViewById(R.id.degree_list)).setItemChecked(position, true);
 		}
 
 		m_activatedPosition = position;
 	}
 
 	public void refreshListView() {
-		setListAdapter(new ArrayAdapter<Degree>(getActivity(),
-				android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DegreeContent.DEGREE_LIST));
+		ListView lv = (ListView) m_rootView.findViewById(R.id.degree_list);
+		if (null != lv) {
+			lv.setAdapter(new ArrayAdapter<Degree>(getActivity(), android.R.layout.simple_list_item_activated_1,
+					android.R.id.text1, DegreeContent.DEGREE_LIST));
+			lv.setItemChecked(m_activatedPosition, true);
+		}
 	}
 }
