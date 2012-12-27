@@ -145,11 +145,15 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 		private String getGradesLink() {
 
+			String link = null;
 			String html = getHtml("rds?state=change&type=1&moduleParameter=studyPOSMenu&nextdir=change&next=menu.vm&"
 					+ "subdir=applications&xml=menu&purge=y&navigationPosition=functions%2CstudyPOSMenu&breadcrumb="
 					+ "studyPOSMenu&topitem=functions&subitem=studyPOSMenu");
+			if (html.equals("")) {
+				publishProgress(R.string.load_lookup_of_link_failed);
+				return link;
+			}
 
-			String link = null;
 			Matcher m = Pattern.compile("(rds.+?)\"  title=\"\" class=\"auflistung\">Notenspiegel</a>").matcher(html);
 			if (m.find()) {
 				link = m.group(1);
@@ -159,8 +163,12 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 			return link;
 		}
 
-		public void addDegrees(String link, List<Degree> degrees) {
+		public boolean addDegrees(String link, List<Degree> degrees) {
 			String html = getHtml(link);
+			if (html.equals("")) {
+				publishProgress(R.string.load_lookup_of_link_failed);
+				return false;
+			}
 
 			Matcher matcher = Pattern.compile("(rds.+?)\" title=\"Leistungen f(.+?)r Abschluss (.+?) anzeigen\">")
 					.matcher(html);
@@ -174,6 +182,10 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 					degLink = degLink.replaceAll("&amp;", "&");
 
 					String degHtml = getHtml(degLink);
+					if (degLink.equals("")) {
+						publishProgress(R.string.load_lookup_of_link_failed);
+						return false;
+					}
 
 					Matcher degM = Pattern.compile("<tr>\\s+(<.+?>)\\s+</tr>", Pattern.MULTILINE | Pattern.DOTALL)
 							.matcher(degHtml);
@@ -185,6 +197,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 					degrees.add(degree);
 				}
 			}
+			return true;
 		}
 
 		public boolean fetchData() {
@@ -196,14 +209,16 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 			publishProgress(R.string.load_lookup_link);
 			String link = getGradesLink();
-			if (link == null) {
+			if (null == link) {
 				publishProgress(R.string.load_lookup_link_failed);
 				return false;
 			}
 
 			m_degrees.clear();
 			publishProgress(R.string.load_add_degrees);
-			addDegrees(link, m_degrees);
+			if (!addDegrees(link, m_degrees)) {
+				return false;
+			}
 
 			if (m_degrees.size() == 0) {
 				publishProgress(R.string.load_no_degrees_found);
@@ -354,7 +369,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 				is.close();
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				return "";
 			}
 
 			return html;
