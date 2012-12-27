@@ -7,7 +7,8 @@
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context=".DegreeListActivity" >
+    tools:context=".DegreeListActivity"
+    android:baselineAligned="false" >
 
     <!--
     This layout is a two-pane layout for the Grades
@@ -20,13 +21,12 @@
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     -->
 
-    <fragment
-        android:id="@+id/degree_list"
+    <FrameLayout
+        android:id="@+id/degree_list_container"
         android:name="de.htwg.moc.htwg_grade_app.DegreeListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        tools:layout="@android:layout/list_content" />
+        android:layout_weight="1" />
 
     <FrameLayout
         android:id="@+id/degree_detail_container"
