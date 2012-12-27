@@ -18,17 +18,6 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// setupActionBar();
-
-//		SharedPreferences prefs = this.getSharedPreferences("settings", 0);
-//	    listener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-//			public void onSharedPreferenceChanged(SharedPreferences prefs,
-//					String key) {
-//				int flag = 1;
-//			}
-//		};
-//
-//		prefs.registerOnSharedPreferenceChangeListener(listener);
 		
 		// Display the fragment as the main content.
         getFragmentManager().beginTransaction()
@@ -49,12 +38,5 @@ public class SettingsActivity extends PreferenceActivity {
 			// Load the preferences from an XML resource
 			addPreferencesFromResource(R.xml.pref_user_settings);
 		}
-
-//		@Override
-//		public void onSharedPreferenceChanged(
-//				SharedPreferences sharedPreferences, String key) {
-//			// TODO Auto-generated method stub
-//			int a = 0;
-//		}
 	}
 }
