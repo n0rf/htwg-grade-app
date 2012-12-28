@@ -235,7 +235,10 @@ public class GradesListFragment extends Fragment {
 		if ("" != m_selectedDegree) {
 			if (requestNewGrades) {
 				// TODO: starting intend causes the grades fragment to be in back stack!
+				Bundle bundle = new Bundle();
+				bundle.putBoolean(DegreeListActivity.REFRESH_CARE_ABOUT_CURRENT_KEY, false);
 				Intent intent = new Intent(getActivity(), DegreeListActivity.class);
+				intent.putExtras(bundle); //Put your id to your next Intent
 				startActivity(intent);
 			} else {
 

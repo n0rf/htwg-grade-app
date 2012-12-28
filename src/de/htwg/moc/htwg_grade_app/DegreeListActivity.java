@@ -27,6 +27,8 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 	 * device.
 	 */
 	private boolean m_twoPane;
+	
+	public static final String REFRESH_CARE_ABOUT_CURRENT_KEY = "REFRESH_CARE_ABOUT_CURRENT_KEY"; 
 
 	private DegreeListFragment m_degreeFragment = null;
 
@@ -41,8 +43,12 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		refreshDegreeList(true);
-
+		boolean careAboutCurrent = true;
+		if (getIntent().hasExtra(REFRESH_CARE_ABOUT_CURRENT_KEY)) {
+			careAboutCurrent = getIntent().getExtras().getBoolean(REFRESH_CARE_ABOUT_CURRENT_KEY);
+		}
+		refreshDegreeList(careAboutCurrent);
+		
 		// Get the intent, verify the action and get the query
 		handleIntent(getIntent());
 	}
