@@ -55,13 +55,13 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 				QisClient client = new QisClient(user, password);
 
-				DegreeContent.DEGREES.clear();
-				DegreeContent.DEGREE_LIST.clear();
-
 				if (!client.fetchData()) {
 					return false;
 				}
 
+				DegreeContent.DEGREES.clear();
+				DegreeContent.DEGREE_LIST.clear();
+				
 				List<Degree> degrees = client.getDegrees();
 				for (Degree degree : degrees) {
 					DegreeContent.DEGREES.put(degree.getNumber(), degree);
@@ -372,6 +372,9 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 				return "";
 			}
 
+			if (!html.contains("DOCTYPE HTML PUBLIC") || !html.contains("</html>")) {
+				html = "";
+			}
 			return html;
 		}
 	}
