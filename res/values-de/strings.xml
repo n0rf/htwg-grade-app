@@ -29,20 +29,20 @@
     
     
     <!-- Grade details strings -->
-    <string name="grade_detail_program">Program</string>
-    <string name="grade_detail_exam_number">Exam Number</string>
-    <string name="grade_detail_exam_text">Exam Text</string>
+    <string name="grade_detail_program">Studiengang</string>
+    <string name="grade_detail_exam_number">Prüfungsnummer</string>
+    <string name="grade_detail_exam_text">Prüfungstext</string>
     <string name="grade_detail_semester">Semester</string>
     <string name="grade_detail_ects">ECTS</string>
-    <string name="grade_detail_grade">Grade</string>
-    <string name="grade_detail_type">Type</string>
+    <string name="grade_detail_grade">Note</string>
+    <string name="grade_detail_type">Typ</string>
     <string name="grade_detail_type_modul">Modul</string>
-    <string name="grade_detail_type_certificate">Certificate</string>
-    <string name="grade_detail_type_graded">Graded</string>
-    <string name="grade_detail_state">State</string>
-    <string name="grade_detail_notes">Notes</string>
-    <string name="grade_detail_attempts">Attempts</string>
-    <string name="share_button">Share</string>
+    <string name="grade_detail_type_certificate">Schein</string>
+    <string name="grade_detail_type_graded">Benotet</string>
+    <string name="grade_detail_state">Status</string>
+    <string name="grade_detail_notes">Vermerk</string>
+    <string name="grade_detail_attempts">Versuche</string>
+    <string name="share_button">Teilen</string>
     <string name="share_button_text">Schaut euch das an, meine Note in %1$s: %2$s!</string>
     
     <!-- Loading details -->
