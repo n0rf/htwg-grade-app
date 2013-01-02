@@ -297,12 +297,12 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 			if (g.trim().equals("") || g.trim().equals("0,0")) {
 				grade.setGraded(false);
 			} else {
-				try {
+//				try {
 					grade.setGraded(true);
-					grade.setGrade(Double.parseDouble(g.replace(',', '.')));
-				} catch (NumberFormatException e) {
-					grade.setGrade(-1.0);
-				}
+					grade.setGrade(g.replace(',', '.'));
+//				} catch (NumberFormatException e) {
+//					grade.setGrade(-1.0);
+//				}
 			}
 			grade.setState(matches[6]);
 			grade.setNotes(matches[7]);

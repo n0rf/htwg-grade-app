@@ -107,7 +107,7 @@ public class GradeDetailsFragment extends Fragment {
 		
 		map = new HashMap<String, String>();
 		map.put("key", getString(R.string.grade_detail_grade));
-		map.put("value", String.valueOf(m_grade.getGrade()));
+		map.put("value", m_grade.getGrade());
 		fillMaps.add(map);
 		
 		String type = "";

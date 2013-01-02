@@ -146,11 +146,11 @@ public class GradesListFragment extends Fragment {
 					m_filteredGrades.add(grade);
 					map = new HashMap<String, String>();
 					map.put("examText", grade.getExamText());
-					if (grade.getGrade() == 0.0) {
-						map.put("grade", "");
-					} else {
-						map.put("grade", String.valueOf(grade.getGrade()));
-					}
+//					if (grade.getGrade().equals("")) {
+//						map.put("grade", "");
+//					} else {
+						map.put("grade", grade.getGrade());
+//					}
 
 					if (twoPane) {
 						map.put("ects", String.valueOf(grade.getEcts()));
@@ -209,11 +209,11 @@ public class GradesListFragment extends Fragment {
 					m_filteredGrades.add(grade);
 					map = new HashMap<String, String>();
 					map.put("examText", grade.getExamText());
-					if (grade.getGrade() == 0.0) {
-						map.put("grade", "");
-					} else {
-						map.put("grade", String.valueOf(grade.getGrade()));
-					}
+//					if (grade.getGrade() == 0.0) {
+//						map.put("grade", "");
+//					} else {
+						map.put("grade", grade.getGrade());
+//					}
 
 					if (twoPane) {
 						map.put("ects", String.valueOf(grade.getEcts()));
@@ -238,7 +238,7 @@ public class GradesListFragment extends Fragment {
 				Bundle bundle = new Bundle();
 				bundle.putBoolean(DegreeListActivity.REFRESH_CARE_ABOUT_CURRENT_KEY, false);
 				Intent intent = new Intent(getActivity(), DegreeListActivity.class);
-				intent.putExtras(bundle); //Put your id to your next Intent
+				intent.putExtras(bundle);
 				startActivity(intent);
 			} else {
 

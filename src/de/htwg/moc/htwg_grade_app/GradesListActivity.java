@@ -22,8 +22,6 @@ import android.widget.PopupMenu.OnMenuItemClickListener;
  */
 public class GradesListActivity extends FragmentActivity implements OnMenuItemClickListener {
 
-	private GradesListFragment m_fragment;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -49,9 +47,9 @@ public class GradesListActivity extends FragmentActivity implements OnMenuItemCl
 
 			arguments.putString(GradesListFragment.ARG_DEGREE_NUMBER,
 					getIntent().getStringExtra(GradesListFragment.ARG_DEGREE_NUMBER));
-			m_fragment = new GradesListFragment();
-			m_fragment.setArguments(arguments);
-			getSupportFragmentManager().beginTransaction().add(R.id.grade_detail_container, m_fragment).commit();
+			GradesListFragment fragment = new GradesListFragment();
+			fragment.setArguments(arguments);
+			getSupportFragmentManager().beginTransaction().add(R.id.grade_detail_container, fragment).commit();
 
 			// Get the intent, verify the action and get the query
 			handleIntent(getIntent());
@@ -84,6 +82,8 @@ public class GradesListActivity extends FragmentActivity implements OnMenuItemCl
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Fragment fragment = null;
+		
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
@@ -99,13 +99,17 @@ public class GradesListActivity extends FragmentActivity implements OnMenuItemCl
 			onSearchRequested();
 			return true;
 		case R.id.grades_menu_item_filter:
-			if (null != m_fragment) {
-				m_fragment.showPopup(this, findViewById(R.id.grades_menu_item_filter));
+			fragment = getSupportFragmentManager().findFragmentById(R.id.grade_detail_container);
+			if (fragment != null && fragment instanceof GradesListFragment) {
+				((GradesListFragment) fragment).showPopup(this, findViewById(R.id.grades_menu_item_filter));
 			}
 			return true;
 		case R.id.grades_menu_item_refresh:
 			// refresh grades list view and request new grades from QIS
-			m_fragment.refreshListView(true);
+			fragment = getSupportFragmentManager().findFragmentById(R.id.grade_detail_container);
+			if (fragment != null && fragment instanceof GradesListFragment) {
+				((GradesListFragment) fragment).refreshListView(true);
+			}
 			return true;
 		case R.id.grades_menu_item_settings:
 			Intent intent = new Intent(this, SettingsActivity.class);
@@ -117,7 +121,10 @@ public class GradesListActivity extends FragmentActivity implements OnMenuItemCl
 
 	@Override
 	public boolean onMenuItemClick(MenuItem item) {
-		m_fragment.filterMenuItemClicked(item);
+		Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.grade_detail_container);
+		if (fragment != null && fragment instanceof GradesListFragment) {
+			((GradesListFragment) fragment).filterMenuItemClicked(item);
+		}
 		return true;
 	}
 

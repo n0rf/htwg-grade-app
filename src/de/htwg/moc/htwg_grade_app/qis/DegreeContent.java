@@ -40,25 +40,25 @@ public class DegreeContent {
 		DEGREE_LIST.clear();
 		
 		Degree bachelor = new Degree("84", "Bachelor");
-		bachelor.addGrade(new Grade("SEB", "Mathematik 1", "WS08/09", 1.7,
+		bachelor.addGrade(new Grade("SEB", "Mathematik 1", "WS08/09", "1.7",
 				false));
 		bachelor.addGrade(new Grade("SEB", "Mathematik 1 (S)", "WS08/09"));
-		bachelor.addGrade(new Grade("SEB", "Digitaltechnik", "WS08/09", 1.7,
+		bachelor.addGrade(new Grade("SEB", "Digitaltechnik", "WS08/09", "1.7",
 				false));
 		bachelor.addGrade(new Grade("SEB", "Digitaltechnik (S)", "WS08/09"));
 		bachelor.addGrade(new Grade("SEB",
-				"Algorithmen und Theoretische Informatik", "WS09/10", 2.2, true));
-		bachelor.addGrade(new Grade("SEB", "Wahlpflichtmodul", "WS11/12", 1.7,
+				"Algorithmen und Theoretische Informatik", "WS09/10", "2.2", true));
+		bachelor.addGrade(new Grade("SEB", "Wahlpflichtmodul", "WS11/12", "1.7",
 				true));
 		DEGREES.put(String.valueOf(bachelor.getNumber()), bachelor);
 		DEGREE_LIST.add(bachelor);
 
 		Degree master = new Degree("90", "Master");
 		master.addGrade(new Grade("MSI", "Theoretische Informatik", "SS12",
-				2.1, true));
-		master.addGrade(new Grade("MSI", "Komplexitätstheorie", "SS12", 2.3,
+				"2.1", true));
+		master.addGrade(new Grade("MSI", "Komplexitätstheorie", "SS12", "2.3",
 				false));
-		master.addGrade(new Grade("MSI", "Algorithmentechnik", "SS12", 2.0,
+		master.addGrade(new Grade("MSI", "Algorithmentechnik", "SS12", "2.0",
 				false));
 		DEGREES.put(String.valueOf(master.getNumber()), master);
 		DEGREE_LIST.add(master);

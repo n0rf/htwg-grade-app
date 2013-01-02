@@ -9,7 +9,7 @@ public class Grade implements Comparable<Grade> {
 	private String m_examText;
 	private String m_semester;
 	private double m_ects;
-	private double m_grade;
+	private String m_grade = "";
 	private boolean m_graded;
 	private boolean m_certOnly;
 	private boolean m_modul;
@@ -33,7 +33,7 @@ public class Grade implements Comparable<Grade> {
 		m_modul = false;
 	}
 
-	public Grade(String program, String examText, String semester, double grade, boolean modul) {
+	public Grade(String program, String examText, String semester, String grade, boolean modul) {
 		this.m_program = program;
 		this.m_examText = examText;
 		this.m_semester = semester;
@@ -83,11 +83,11 @@ public class Grade implements Comparable<Grade> {
 		this.m_ects = ects;
 	}
 
-	public double getGrade() {
+	public String getGrade() {
 		return m_grade;
 	}
 
-	public void setGrade(double grade) {
+	public void setGrade(String grade) {
 		this.m_grade = grade;
 	}
 
