@@ -146,11 +146,7 @@ public class GradesListFragment extends Fragment {
 					m_filteredGrades.add(grade);
 					map = new HashMap<String, String>();
 					map.put("examText", grade.getExamText());
-//					if (grade.getGrade().equals("")) {
-//						map.put("grade", "");
-//					} else {
-						map.put("grade", grade.getGrade());
-//					}
+					map.put("grade", grade.getGrade());
 
 					if (twoPane) {
 						map.put("ects", String.valueOf(grade.getEcts()));
@@ -209,11 +205,7 @@ public class GradesListFragment extends Fragment {
 					m_filteredGrades.add(grade);
 					map = new HashMap<String, String>();
 					map.put("examText", grade.getExamText());
-//					if (grade.getGrade() == 0.0) {
-//						map.put("grade", "");
-//					} else {
-						map.put("grade", grade.getGrade());
-//					}
+					map.put("grade", grade.getGrade());
 
 					if (twoPane) {
 						map.put("ects", String.valueOf(grade.getEcts()));

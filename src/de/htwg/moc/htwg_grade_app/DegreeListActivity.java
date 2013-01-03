@@ -27,10 +27,8 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 	 * device.
 	 */
 	private boolean m_twoPane;
-	
-	public static final String REFRESH_CARE_ABOUT_CURRENT_KEY = "REFRESH_CARE_ABOUT_CURRENT_KEY"; 
 
-	private DegreeListFragment m_degreeFragment = null;
+	public static final String REFRESH_CARE_ABOUT_CURRENT_KEY = "REFRESH_CARE_ABOUT_CURRENT_KEY";
 
 	private String m_userName = "";
 
@@ -48,7 +46,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 			careAboutCurrent = getIntent().getExtras().getBoolean(REFRESH_CARE_ABOUT_CURRENT_KEY);
 		}
 		refreshDegreeList(careAboutCurrent);
-		
+
 		// Get the intent, verify the action and get the query
 		handleIntent(getIntent());
 	}
@@ -86,12 +84,12 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 
 			arguments.putInt(DegreeListFragment.STATE_ACTIVATED_POSITION, m_lastSelection);
 			arguments.putString(DegreeListFragment.USER, m_userName);
-			m_degreeFragment = new DegreeListFragment();
-			m_degreeFragment.setArguments(arguments);
-			getFragmentManager().beginTransaction().replace(R.id.degree_list_container, m_degreeFragment).commit();
+			DegreeListFragment degreeFragment = new DegreeListFragment();
+			degreeFragment.setArguments(arguments);
+			getFragmentManager().beginTransaction().replace(R.id.degree_list_container, degreeFragment).commit();
 
 			if (m_twoPane) {
-				m_degreeFragment.setActivateOnItemClick(true);
+				degreeFragment.setActivateOnItemClick(true);
 
 				GradesListFragment gradesFragment = new GradesListFragment();
 
@@ -123,6 +121,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 	}
 
 	private void refreshDegreeList(boolean careAboutCurrent) {
+		// TODO: remove!
 		// if (!careAboutCurrent) {
 		// DegreeContent.tmpRefresh();
 		// refreshView();
@@ -246,8 +245,8 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 		super.onConfigurationChanged(newConfig);
 
 		// Checks the orientation of the screen
-		// if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE)
-		// if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)
+		// if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {}
+		// if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {}
 	}
 
 	public void refreshView() {

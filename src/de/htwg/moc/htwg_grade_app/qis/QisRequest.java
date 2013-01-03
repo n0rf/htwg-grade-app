@@ -28,8 +28,8 @@ import de.htwg.moc.htwg_grade_app.dos.Grade;
 public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 	private Context appContext;
-	// TODO: is it the right way to notify the activity about the finished
-	// process by giving the activity to the async task?
+
+	/** Activity to be notified about the execution status. */
 	private DegreeListActivity activity;
 
 	private Builder m_builder;
@@ -61,7 +61,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 				DegreeContent.DEGREES.clear();
 				DegreeContent.DEGREE_LIST.clear();
-				
+
 				List<Degree> degrees = client.getDegrees();
 				for (Degree degree : degrees) {
 					DegreeContent.DEGREES.put(degree.getNumber(), degree);
@@ -90,11 +90,6 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 		super.onPreExecute();
 
 		m_progressDialog = ProgressDialog.show(appContext, appContext.getString(R.string.refreh_loading), "...");
-		// m_builder = new AlertDialog.Builder(activity);
-		// m_dialog = m_builder.create();
-		// m_dialog.setMessage(appContext.getString(R.string.refreh_loading));
-		// m_dialog.setCanceledOnTouchOutside(false);
-		// m_dialog.show();
 	}
 
 	@Override
@@ -297,12 +292,8 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 			if (g.trim().equals("") || g.trim().equals("0,0")) {
 				grade.setGraded(false);
 			} else {
-//				try {
-					grade.setGraded(true);
-					grade.setGrade(g.replace(',', '.'));
-//				} catch (NumberFormatException e) {
-//					grade.setGrade(-1.0);
-//				}
+				grade.setGraded(true);
+				grade.setGrade(g.replace(',', '.'));
 			}
 			grade.setState(matches[6]);
 			grade.setNotes(matches[7]);

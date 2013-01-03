@@ -92,6 +92,7 @@ public class DegreeListFragment extends Fragment {
 		lv.setChoiceMode(m_listChoiceMode);
 		lv.setAdapter(new ArrayAdapter<Degree>(getActivity(), android.R.layout.simple_list_item_activated_1,
 				android.R.id.text1, DegreeContent.DEGREE_LIST));
+		// TODO: listview text size by setting an textview instead of text1
 		if (null != lv) {
 			lv.setOnItemClickListener(new OnItemClickListener() {
 
