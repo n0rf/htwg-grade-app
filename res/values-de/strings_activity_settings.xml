@@ -3,7 +3,7 @@
     <string name="title_activity_settings">Einstellungen</string>
 
     <!-- Strings related to Settings -->
-    <string name="pref_username_title">Benutzername</string>
+    <string name="pref_username_title">RZ-Benutzername</string>
 	<string name="pref_username_default"></string>
 	<string name="pref_username_key">pref_username</string>
 	<string name="pref_password_title">Passwort</string>
