@@ -7,6 +7,8 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
+import de.htwg.moc.htwg_grade_app.R;
 import de.htwg.moc.htwg_grade_app.dos.Grade;
 
 public class GradeListAdapter extends SimpleAdapter {
@@ -29,13 +31,16 @@ public class GradeListAdapter extends SimpleAdapter {
 	  View view = super.getView(position, convertView, parent);
 
 	  Grade grade = m_grades.get(position);
+	  int color = 0xFF000000;
 	  if (grade.isModul()) {
 		  view.setBackgroundColor(colors[2]);
 	  } else if (grade.isCertOnly()) {
 		  view.setBackgroundColor(colors[1]);
+		  color = 0xFF888888;
 	  } else {
 		  view.setBackgroundColor(colors[0]);
 	  }
+	  ((TextView) view.findViewById(R.id.grade_item_grade)).setTextColor(color);
 	  return view;
 	}
 

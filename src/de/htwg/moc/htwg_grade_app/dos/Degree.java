@@ -41,7 +41,7 @@ public class Degree {
 	}
 
 	public void addGrade(Grade grade) {
-		m_grades.put(grade.getExamText(), grade);
+		m_grades.put(grade.getExamText() + grade.getExamNumber(), grade);
 	}
 
 	@Override

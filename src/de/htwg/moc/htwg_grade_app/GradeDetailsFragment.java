@@ -37,7 +37,7 @@ public class GradeDetailsFragment extends Fragment {
 	/**
 	 * The fragment argument representing the grade name.
 	 */
-	public static final String ARG_GRADE_NAME = "grade_name";
+	public static final String ARG_GRADE_KEY = "grade_key";
 	
 	private Grade m_grade;
 
@@ -54,11 +54,11 @@ public class GradeDetailsFragment extends Fragment {
 		
 		setHasOptionsMenu(true);
 		
-		if (getArguments().containsKey(ARG_DEGREE_NUMBER) && getArguments().containsKey(ARG_GRADE_NAME)) {
+		if (getArguments().containsKey(ARG_DEGREE_NUMBER) && getArguments().containsKey(ARG_GRADE_KEY)) {
 			if (DegreeContent.DEGREES.containsKey(getArguments().getString(ARG_DEGREE_NUMBER))) {
 				Degree degree = DegreeContent.DEGREES.get(getArguments().getString(ARG_DEGREE_NUMBER));
-				if (degree.getGrades().containsKey(getArguments().getString(ARG_GRADE_NAME))) {
-					m_grade = degree.getGrades().get(getArguments().getString(ARG_GRADE_NAME));
+				if (degree.getGrades().containsKey(getArguments().getString(ARG_GRADE_KEY))) {
+					m_grade = degree.getGrades().get(getArguments().getString(ARG_GRADE_KEY));
 				}
 			}
 		}

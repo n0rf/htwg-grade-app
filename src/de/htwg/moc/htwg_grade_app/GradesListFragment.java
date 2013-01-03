@@ -86,13 +86,13 @@ public class GradesListFragment extends Fragment {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					
 					String degreeNumber = m_degree.getNumber();
-					String examText = m_filteredGrades.get(position).getExamText();
+					String examKey = m_filteredGrades.get(position).getExamText() + m_filteredGrades.get(position).getExamNumber();
 					
 					if (getActivity() instanceof DegreeListActivity) {
-						((DegreeListActivity) getActivity()).showGradeDetails(degreeNumber, examText);
+						((DegreeListActivity) getActivity()).showGradeDetails(degreeNumber, examKey);
 					
 					} else {
-						((GradesListActivity) getActivity()).showGradeDetails(degreeNumber, examText);
+						((GradesListActivity) getActivity()).showGradeDetails(degreeNumber, examKey);
 					}
 				}
 			});
@@ -146,7 +146,11 @@ public class GradesListFragment extends Fragment {
 					m_filteredGrades.add(grade);
 					map = new HashMap<String, String>();
 					map.put("examText", grade.getExamText());
-					map.put("grade", grade.getGrade());
+					if (grade.isCertOnly()) {
+						map.put("grade", grade.getState());
+					} else {
+						map.put("grade", grade.getGrade());
+					}
 
 					if (twoPane) {
 						map.put("ects", String.valueOf(grade.getEcts()));
@@ -205,7 +209,11 @@ public class GradesListFragment extends Fragment {
 					m_filteredGrades.add(grade);
 					map = new HashMap<String, String>();
 					map.put("examText", grade.getExamText());
-					map.put("grade", grade.getGrade());
+					if (grade.isCertOnly()) {
+						map.put("grade", grade.getState());
+					} else {
+						map.put("grade", grade.getGrade());
+					}
 
 					if (twoPane) {
 						map.put("ects", String.valueOf(grade.getEcts()));

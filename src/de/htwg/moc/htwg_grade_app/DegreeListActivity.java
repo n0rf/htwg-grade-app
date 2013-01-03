@@ -273,11 +273,11 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 		}
 	}
 
-	public void showGradeDetails(String degreeNumber, String examText) {
+	public void showGradeDetails(String degreeNumber, String examKey) {
 		if (m_twoPane) {
 			Bundle arguments = new Bundle();
 			arguments.putString(GradeDetailsFragment.ARG_DEGREE_NUMBER, degreeNumber);
-			arguments.putString(GradeDetailsFragment.ARG_GRADE_NAME, examText);
+			arguments.putString(GradeDetailsFragment.ARG_GRADE_KEY, examKey);
 			GradeDetailsFragment fragment = new GradeDetailsFragment();
 			fragment.setArguments(arguments);
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction().replace(
