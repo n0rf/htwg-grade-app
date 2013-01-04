@@ -60,6 +60,89 @@
 				    android:text=""
 				    android:textSize="16sp" />
 		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:gravity="left" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/user_data_nummer"
+			    android:textSize="16sp"
+			    android:paddingRight="10sp" />
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:gravity="center">
+
+			<TextView
+				    android:id="@+id/logged_in_user_nummer"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:textStyle="bold"
+				    android:text=""
+				    android:textSize="16sp" />
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:gravity="left" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/user_data_birth"
+			    android:textSize="16sp"
+			    android:paddingRight="10sp" />
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:gravity="center">
+
+			<TextView
+				    android:id="@+id/logged_in_user_birth"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:textStyle="bold"
+				    android:text=""
+				    android:textSize="16sp" />
+		</LinearLayout>
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:gravity="left" >
+			<TextView
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:text="@string/user_data_address"
+			    android:textSize="16sp"
+			    android:paddingRight="10sp" />
+		</LinearLayout>
+		
+		<LinearLayout
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:gravity="center">
+
+			<TextView
+				    android:id="@+id/logged_in_user_address"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:textStyle="bold"
+				    android:text=""
+				    android:textSize="16sp" />
+		</LinearLayout>
 	    
 	</LinearLayout>
 

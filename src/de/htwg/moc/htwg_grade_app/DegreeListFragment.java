@@ -120,6 +120,11 @@ public class DegreeListFragment extends Fragment {
 		}
 		if (!m_userName.equals("")) {
 			((TextView) m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_nummer)).setText(DegreeContent.STUDENT.getNumber());
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_birth)).setText(DegreeContent.STUDENT
+					.getBirthDateAndPlace());
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_address)).setText(DegreeContent.STUDENT
+					.getAddress());
 		}
 		return m_rootView;
 	}

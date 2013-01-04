@@ -10,6 +10,7 @@ import de.htwg.moc.htwg_grade_app.DegreeListActivity;
 import de.htwg.moc.htwg_grade_app.dos.Degree;
 import de.htwg.moc.htwg_grade_app.dos.Grade;
 import de.htwg.moc.htwg_grade_app.dos.GradesFilter;
+import de.htwg.moc.htwg_grade_app.dos.Student;
 
 /**
  * Helper class for providing degree and grade data as well as temporary used filter options.
@@ -24,6 +25,8 @@ public class DegreeContent {
 	public static Map<String, Degree> DEGREES = new HashMap<String, Degree>();
 
 	public static List<Degree> DEGREE_LIST = new ArrayList<Degree>();
+	
+	public static Student STUDENT = new Student();
 
 	public static String EXAM_TEXT_FILTER = "";
 	

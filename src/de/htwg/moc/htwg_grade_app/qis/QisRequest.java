@@ -24,6 +24,7 @@ import de.htwg.moc.htwg_grade_app.DegreeListActivity;
 import de.htwg.moc.htwg_grade_app.R;
 import de.htwg.moc.htwg_grade_app.dos.Degree;
 import de.htwg.moc.htwg_grade_app.dos.Grade;
+import de.htwg.moc.htwg_grade_app.dos.Student;
 
 public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
@@ -58,6 +59,8 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 				if (!client.fetchData()) {
 					return false;
 				}
+				
+				DegreeContent.STUDENT = client.getStudent();
 
 				DegreeContent.DEGREES.clear();
 				DegreeContent.DEGREE_LIST.clear();
@@ -122,6 +125,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 		private Proxy m_proxy;
 		private String m_jsessionid = "";
 		private List<Degree> m_degrees = new ArrayList<Degree>();
+		private Student m_student = new Student();
 
 		public QisClient(String user, String password) {
 			this(user, password, Proxy.NO_PROXY);
@@ -136,6 +140,10 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 		public List<Degree> getDegrees() {
 			return m_degrees;
+		}
+		
+		public Student getStudent() {
+			return m_student;
 		}
 
 		private String getGradesLink() {
@@ -158,13 +166,28 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 			return link;
 		}
 
+		private String findStudentData(int id, String html) {
+			Matcher matcher = Pattern.compile("headers=\"basic_" + id + "\">(.+?)</td>").matcher(html);
+			if (matcher.find()) {
+				return matcher.group(1).replaceAll("&nbsp;", " ");
+			} else
+				return null;
+		}
+
+		private void addStudentData(String html, Student student) {
+			student.setName(findStudentData(1, html));
+			student.setBirthDateAndPlace(findStudentData(2, html));
+			student.setNumber(findStudentData(5, html));
+			student.setAddress(findStudentData(6, html));
+		}
+
 		public boolean addDegrees(String link, List<Degree> degrees) {
 			String html = getHtml(link);
 			if (html.equals("")) {
 				publishProgress(R.string.load_lookup_of_link_failed);
 				return false;
 			}
-
+			
 			Matcher matcher = Pattern.compile("(rds.+?)\" title=\"Leistungen f(.+?)r Abschluss (.+?) anzeigen\">")
 					.matcher(html);
 			while (matcher.find()) {
@@ -177,6 +200,12 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 					degLink = degLink.replaceAll("&amp;", "&");
 
 					String degHtml = getHtml(degLink);
+					
+					// setup user date
+					if (null == m_student.getName()) {
+						addStudentData(degHtml, m_student);
+					}
+					
 					if (degLink.equals("")) {
 						publishProgress(R.string.load_lookup_of_link_failed);
 						return false;

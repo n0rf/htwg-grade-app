@@ -60,6 +60,9 @@
     <!-- Degree list -->
     <string name="refresh_all">Refresh</string>
     <string name="user_data">User informationen</string>
-    <string name="user_data_name">User name:</string>
+    <string name="user_data_name">RZ-User name:</string>
+    <string name="user_data_nummer">Matriculation number:</string>
+    <string name="user_data_birth">Date and place of birth:</string>
+    <string name="user_data_address">Address:</string>
 
 </resources>

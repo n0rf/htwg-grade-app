@@ -23,34 +23,37 @@ public final class R {
         public static final int degree_detail_container=0x7f080001;
         public static final int degree_list=0x7f080004;
         public static final int degree_list_container=0x7f080000;
-        public static final int degree_menu_item_refresh=0x7f080018;
-        public static final int degree_menu_item_settings=0x7f080019;
-        public static final int details_list=0x7f080006;
+        public static final int degree_menu_item_refresh=0x7f08001b;
+        public static final int degree_menu_item_settings=0x7f08001c;
+        public static final int details_list=0x7f080009;
         public static final int grade_detail_container=0x7f080002;
-        public static final int grade_detail_key=0x7f08000e;
-        public static final int grade_detail_value=0x7f08000f;
-        public static final int grade_item_ects=0x7f080012;
-        public static final int grade_item_examText=0x7f080010;
-        public static final int grade_item_grade=0x7f080011;
-        public static final int grades_head_1=0x7f080009;
-        public static final int grades_head_2=0x7f08000a;
-        public static final int grades_head_3=0x7f08000c;
-        public static final int grades_list=0x7f08000b;
-        public static final int grades_menu_clear_text_filter=0x7f080016;
-        public static final int grades_menu_item_filter=0x7f080014;
-        public static final int grades_menu_item_refresh=0x7f080015;
-        public static final int grades_menu_item_search=0x7f080013;
-        public static final int grades_menu_item_settings=0x7f080017;
-        public static final int header=0x7f080008;
+        public static final int grade_detail_key=0x7f080011;
+        public static final int grade_detail_value=0x7f080012;
+        public static final int grade_item_ects=0x7f080015;
+        public static final int grade_item_examText=0x7f080013;
+        public static final int grade_item_grade=0x7f080014;
+        public static final int grades_head_1=0x7f08000c;
+        public static final int grades_head_2=0x7f08000d;
+        public static final int grades_head_3=0x7f08000f;
+        public static final int grades_list=0x7f08000e;
+        public static final int grades_menu_clear_text_filter=0x7f080019;
+        public static final int grades_menu_item_filter=0x7f080017;
+        public static final int grades_menu_item_refresh=0x7f080018;
+        public static final int grades_menu_item_search=0x7f080016;
+        public static final int grades_menu_item_settings=0x7f08001a;
+        public static final int header=0x7f08000b;
         public static final int logged_in_user=0x7f080005;
-        public static final int popup_filter_menu_item_all=0x7f08001b;
-        public static final int popup_filter_menu_item_certificates=0x7f08001d;
-        public static final int popup_filter_menu_item_grades=0x7f08001c;
-        public static final int popup_filter_menu_item_modules=0x7f08001e;
-        public static final int popup_filter_menu_item_textfilter=0x7f08001a;
-        public static final int refresh_all_button=0x7f08000d;
+        public static final int logged_in_user_address=0x7f080008;
+        public static final int logged_in_user_birth=0x7f080007;
+        public static final int logged_in_user_nummer=0x7f080006;
+        public static final int popup_filter_menu_item_all=0x7f08001e;
+        public static final int popup_filter_menu_item_certificates=0x7f080020;
+        public static final int popup_filter_menu_item_grades=0x7f08001f;
+        public static final int popup_filter_menu_item_modules=0x7f080021;
+        public static final int popup_filter_menu_item_textfilter=0x7f08001d;
+        public static final int refresh_all_button=0x7f080010;
         public static final int refresh_container=0x7f080003;
-        public static final int share_button=0x7f080007;
+        public static final int share_button=0x7f08000a;
     }
     public static final class layout {
         /** 
@@ -136,16 +139,16 @@ public final class R {
         public static final int popup_filter_menu_item_grades=0x7f060009;
         public static final int popup_filter_menu_item_modules=0x7f06000b;
         public static final int popup_filter_menu_item_text=0x7f060007;
-        public static final int pref_header_general=0x7f060037;
-        public static final int pref_password_default=0x7f060035;
-        public static final int pref_password_key=0x7f060036;
-        public static final int pref_password_title=0x7f060034;
-        public static final int pref_username_default=0x7f060032;
-        public static final int pref_username_key=0x7f060033;
+        public static final int pref_header_general=0x7f06003a;
+        public static final int pref_password_default=0x7f060038;
+        public static final int pref_password_key=0x7f060039;
+        public static final int pref_password_title=0x7f060037;
+        public static final int pref_username_default=0x7f060035;
+        public static final int pref_username_key=0x7f060036;
         /**  Strings related to Settings 
  Strings related to Settings 
          */
-        public static final int pref_username_title=0x7f060031;
+        public static final int pref_username_title=0x7f060034;
         public static final int refreh_failed=0x7f060013;
         public static final int refreh_loading=0x7f060011;
         public static final int refreh_success=0x7f060012;
@@ -155,10 +158,13 @@ public final class R {
         public static final int refresh_all=0x7f06002d;
         public static final int share_button=0x7f060021;
         public static final int share_button_text=0x7f060022;
-        public static final int title_activity_settings=0x7f060030;
+        public static final int title_activity_settings=0x7f060033;
         public static final int title_degree_detail=0x7f060001;
         public static final int user_data=0x7f06002e;
+        public static final int user_data_address=0x7f060032;
+        public static final int user_data_birth=0x7f060031;
         public static final int user_data_name=0x7f06002f;
+        public static final int user_data_nummer=0x7f060030;
         public static final int voice_search=0x7f060010;
     }
     public static final class style {
