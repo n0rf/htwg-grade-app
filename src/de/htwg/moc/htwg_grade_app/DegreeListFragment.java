@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import de.htwg.moc.htwg_grade_app.dos.Degree;
-import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
+import de.htwg.moc.htwg_grade_app.qis.Content;
 
 /**
  * A list fragment representing a list of Grades. This fragment also supports
@@ -91,14 +91,14 @@ public class DegreeListFragment extends Fragment {
 		final ListView lv = (ListView) m_rootView.findViewById(R.id.degree_list);
 		lv.setChoiceMode(m_listChoiceMode);
 		lv.setAdapter(new ArrayAdapter<Degree>(getActivity(), android.R.layout.simple_list_item_activated_1,
-				android.R.id.text1, DegreeContent.DEGREE_LIST));
+				android.R.id.text1, Content.DEGREE_LIST));
 		// TODO: listview text size by setting an textview instead of text1
 		if (null != lv) {
 			lv.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					String number = DegreeContent.DEGREE_LIST.get(position).getNumber();
+					String number = Content.DEGREE_LIST.get(position).getNumber();
 					setActivatedPosition(position);
 					m_callbacks.onItemSelected(number);
 				}
@@ -120,10 +120,10 @@ public class DegreeListFragment extends Fragment {
 		}
 		if (!m_userName.equals("")) {
 			((TextView) m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
-			((TextView) m_rootView.findViewById(R.id.logged_in_user_nummer)).setText(DegreeContent.STUDENT.getNumber());
-			((TextView) m_rootView.findViewById(R.id.logged_in_user_birth)).setText(DegreeContent.STUDENT
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_nummer)).setText(Content.STUDENT.getNumber());
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_birth)).setText(Content.STUDENT
 					.getBirthDateAndPlace());
-			((TextView) m_rootView.findViewById(R.id.logged_in_user_address)).setText(DegreeContent.STUDENT
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_address)).setText(Content.STUDENT
 					.getAddress());
 		}
 		return m_rootView;
@@ -188,7 +188,7 @@ public class DegreeListFragment extends Fragment {
 		ListView lv = (ListView) m_rootView.findViewById(R.id.degree_list);
 		if (null != lv) {
 			lv.setAdapter(new ArrayAdapter<Degree>(getActivity(), android.R.layout.simple_list_item_activated_1,
-					android.R.id.text1, DegreeContent.DEGREE_LIST));
+					android.R.id.text1, Content.DEGREE_LIST));
 			lv.setItemChecked(m_activatedPosition, true);
 		}
 	}

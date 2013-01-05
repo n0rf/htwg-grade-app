@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.PopupMenu.OnMenuItemClickListener;
-import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
+import de.htwg.moc.htwg_grade_app.qis.Content;
 import de.htwg.moc.htwg_grade_app.searchable.SuggestionProvider;
 
 /**
@@ -57,7 +57,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 
 		m_refreshFragments = true;
 
-		if (DegreeContent.DEGREE_LIST.isEmpty()) {
+		if (Content.DEGREE_LIST.isEmpty()) {
 			// show refresh fragment if no degrees are available
 			useRefreshFragment();
 		} else {
@@ -94,9 +94,9 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 				GradesListFragment gradesFragment = new GradesListFragment();
 
 				arguments = new Bundle();
-				if (!DegreeContent.DEGREE_LIST.isEmpty()) {
+				if (!Content.DEGREE_LIST.isEmpty()) {
 					if (m_lastSelectionKey.equals("")) {
-						m_lastSelectionKey = DegreeContent.DEGREE_LIST.get(m_lastSelection).getNumber();
+						m_lastSelectionKey = Content.DEGREE_LIST.get(m_lastSelection).getNumber();
 					}
 					arguments.putString(GradesListFragment.ARG_DEGREE_NUMBER, m_lastSelectionKey);
 					gradesFragment.setArguments(arguments);
@@ -126,7 +126,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 		// DegreeContent.tmpRefresh();
 		// refreshView();
 		// }
-		if (!DegreeContent.isRequesting) {
+		if (!Content.isRequesting) {
 			// check settings and refresh view with new data:
 			SharedPreferences settings = getSharedPreferences(SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
 			m_userName = settings.getString(SettingsActivity.KEY_PREF_USERNAME, "");
@@ -137,8 +137,8 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 				this.startActivity(intent);
 			} else {
 				// AsyncTask<String, String, Boolean> task =
-				if (!careAboutCurrent || (careAboutCurrent && DegreeContent.DEGREE_LIST.isEmpty())) {
-					DegreeContent.loadData(DegreeListActivity.this, m_userName, password);
+				if (!careAboutCurrent || (careAboutCurrent && Content.DEGREE_LIST.isEmpty())) {
+					Content.loadData(DegreeListActivity.this, m_userName, password);
 				}
 			}
 		}
@@ -252,10 +252,10 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 	public void refreshView() {
 		DegreeListFragment degreeFragment = (DegreeListFragment) getFragmentManager().findFragmentById(
 				R.id.degree_list_container);
-		if (null != degreeFragment && !DegreeContent.DEGREE_LIST.isEmpty()) {
+		if (null != degreeFragment && !Content.DEGREE_LIST.isEmpty()) {
 			degreeFragment.refreshListView();
 		} else {
-			if (!DegreeContent.DEGREE_LIST.isEmpty()) {
+			if (!Content.DEGREE_LIST.isEmpty()) {
 				useDegreeListFragment(null);
 			} else {
 				useRefreshFragment();

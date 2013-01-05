@@ -25,7 +25,7 @@ import de.htwg.moc.htwg_grade_app.adapter.GradeListAdapter;
 import de.htwg.moc.htwg_grade_app.dos.Degree;
 import de.htwg.moc.htwg_grade_app.dos.Grade;
 import de.htwg.moc.htwg_grade_app.dos.GradesFilter;
-import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
+import de.htwg.moc.htwg_grade_app.qis.Content;
 
 /**
  * A fragment representing a single Degree detail screen. This fragment is
@@ -66,9 +66,9 @@ public class GradesListFragment extends Fragment {
 			
 			setHasOptionsMenu(true);
 
-			if (DegreeContent.DEGREES.containsKey(m_selectedDegree)) {
+			if (Content.DEGREES.containsKey(m_selectedDegree)) {
 				// if a degree is set, get degree and set title of the view
-				m_degree = DegreeContent.DEGREES.get(m_selectedDegree);
+				m_degree = Content.DEGREES.get(m_selectedDegree);
 				getActivity().setTitle(getString(R.string.title_degree_detail, m_degree.getNumber()));
 			}
 		}
@@ -99,17 +99,17 @@ public class GradesListFragment extends Fragment {
 		}
 
 		// show the filtered degree details
-		if (DegreeContent.EXAM_TEXT_FILTER.equals("")) {
-			updateGradeList(DegreeContent.FILTER);
+		if (Content.EXAM_TEXT_FILTER.equals("")) {
+			updateGradeList(Content.FILTER);
 		} else {
-			updateGradeList(DegreeContent.EXAM_TEXT_FILTER);
+			updateGradeList(Content.EXAM_TEXT_FILTER);
 		}
 
 		return m_rootView;
 	}
 	
 	public void updateGradeList(GradesFilter filter) {
-		DegreeContent.FILTER = filter;
+		Content.FILTER = filter;
 		if (!m_selectedDegree.equals("") && null != m_degree && null != m_rootView) {
 			ListView lv = ((ListView) m_rootView.findViewById(R.id.grades_list));
 			Activity host = (Activity) m_rootView.getContext();
@@ -171,8 +171,8 @@ public class GradesListFragment extends Fragment {
 	}
 
 	public void updateGradeList(String examText) {
-		DegreeContent.FILTER = GradesFilter.ALL;
-		DegreeContent.EXAM_TEXT_FILTER = examText;
+		Content.FILTER = GradesFilter.ALL;
+		Content.EXAM_TEXT_FILTER = examText;
 
 		if (!m_selectedDegree.equals("") && null != m_degree && null != m_rootView) {
 			ListView lv = (ListView) m_rootView.findViewById(R.id.grades_list);
@@ -243,10 +243,10 @@ public class GradesListFragment extends Fragment {
 			} else {
 
 				// show the filtered degree details
-				if ("" == DegreeContent.EXAM_TEXT_FILTER) {
-					updateGradeList(DegreeContent.FILTER);
+				if ("" == Content.EXAM_TEXT_FILTER) {
+					updateGradeList(Content.FILTER);
 				} else {
-					updateGradeList(DegreeContent.EXAM_TEXT_FILTER);
+					updateGradeList(Content.EXAM_TEXT_FILTER);
 				}
 			}
 		}
@@ -261,17 +261,17 @@ public class GradesListFragment extends Fragment {
 		popup.setOnMenuItemClickListener((OnMenuItemClickListener) context);
 		MenuItem item;
 		inflater.inflate(R.menu.popup_menu, popup.getMenu());
-		if (!DegreeContent.EXAM_TEXT_FILTER.equals("")) {
-			String title = getString(R.string.popup_filter_menu_item_text, DegreeContent.EXAM_TEXT_FILTER);
+		if (!Content.EXAM_TEXT_FILTER.equals("")) {
+			String title = getString(R.string.popup_filter_menu_item_text, Content.EXAM_TEXT_FILTER);
 			item = popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter);
 			item.setTitle(title);
 		} else {
 			// inflater.inflate(R.menu.popup_menu, popup.getMenu());
 			popup.getMenu().findItem(R.id.popup_filter_menu_item_textfilter).setVisible(false);
-			if (DegreeContent.FILTER_MENU_SELECTION == 0) {
+			if (Content.FILTER_MENU_SELECTION == 0) {
 				item = popup.getMenu().findItem(R.id.popup_filter_menu_item_all);
 			} else {
-				item = popup.getMenu().findItem(DegreeContent.FILTER_MENU_SELECTION);
+				item = popup.getMenu().findItem(Content.FILTER_MENU_SELECTION);
 			}
 		}
 
@@ -281,7 +281,7 @@ public class GradesListFragment extends Fragment {
 
 	public void filterMenuItemClicked(MenuItem item) {
 		item.setChecked(true);
-		DegreeContent.FILTER_MENU_SELECTION = item.getItemId();
+		Content.FILTER_MENU_SELECTION = item.getItemId();
 
 		GradesFilter filter = GradesFilter.ALL;
 		switch (item.getItemId()) {
@@ -298,8 +298,8 @@ public class GradesListFragment extends Fragment {
 			filter = GradesFilter.MODULES;
 			break;
 		}
-		DegreeContent.FILTER = filter;
-		DegreeContent.EXAM_TEXT_FILTER = "";
+		Content.FILTER = filter;
+		Content.EXAM_TEXT_FILTER = "";
 
 		updateGradeList(filter);
 	}

@@ -60,15 +60,15 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 					return false;
 				}
 				
-				DegreeContent.STUDENT = client.getStudent();
+				Content.STUDENT = client.getStudent();
 
-				DegreeContent.DEGREES.clear();
-				DegreeContent.DEGREE_LIST.clear();
+				Content.DEGREES.clear();
+				Content.DEGREE_LIST.clear();
 
 				List<Degree> degrees = client.getDegrees();
 				for (Degree degree : degrees) {
-					DegreeContent.DEGREES.put(degree.getNumber(), degree);
-					DegreeContent.DEGREE_LIST.add(degree);
+					Content.DEGREES.put(degree.getNumber(), degree);
+					Content.DEGREE_LIST.add(degree);
 				}
 				return true;
 			}
@@ -99,7 +99,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 	protected void onPostExecute(Boolean result) {
 		super.onPostExecute(result);
 
-		DegreeContent.isRequesting = false;
+		Content.isRequesting = false;
 		m_progressDialog.dismiss();
 		if (result) {
 			activity.refreshView();

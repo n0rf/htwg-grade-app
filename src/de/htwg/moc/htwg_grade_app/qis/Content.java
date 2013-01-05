@@ -15,7 +15,7 @@ import de.htwg.moc.htwg_grade_app.dos.Student;
 /**
  * Helper class for providing degree and grade data as well as temporary used filter options.
  */
-public class DegreeContent {
+public class Content {
 
 	public static int FILTER_MENU_SELECTION = 0;
 

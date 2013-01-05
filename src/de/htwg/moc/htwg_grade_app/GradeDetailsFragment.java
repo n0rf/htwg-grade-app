@@ -20,7 +20,7 @@ import android.widget.SimpleAdapter;
 import de.htwg.moc.htwg_grade_app.adapter.GradeDetailsAdapter;
 import de.htwg.moc.htwg_grade_app.dos.Degree;
 import de.htwg.moc.htwg_grade_app.dos.Grade;
-import de.htwg.moc.htwg_grade_app.qis.DegreeContent;
+import de.htwg.moc.htwg_grade_app.qis.Content;
 
 /**
  * A fragment representing details of a Grade. This fragment is either contained
@@ -55,8 +55,8 @@ public class GradeDetailsFragment extends Fragment {
 		setHasOptionsMenu(true);
 		
 		if (getArguments().containsKey(ARG_DEGREE_NUMBER) && getArguments().containsKey(ARG_GRADE_KEY)) {
-			if (DegreeContent.DEGREES.containsKey(getArguments().getString(ARG_DEGREE_NUMBER))) {
-				Degree degree = DegreeContent.DEGREES.get(getArguments().getString(ARG_DEGREE_NUMBER));
+			if (Content.DEGREES.containsKey(getArguments().getString(ARG_DEGREE_NUMBER))) {
+				Degree degree = Content.DEGREES.get(getArguments().getString(ARG_DEGREE_NUMBER));
 				if (degree.getGrades().containsKey(getArguments().getString(ARG_GRADE_KEY))) {
 					m_grade = degree.getGrades().get(getArguments().getString(ARG_GRADE_KEY));
 				}
