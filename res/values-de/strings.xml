@@ -60,7 +60,7 @@
     <!-- Degree list -->
     <string name="refresh_all">Aktualisieren</string>
     <string name="user_data">Benutzer Informationen</string>
-    <string name="user_data_name">RZ-Benutzername:</string>
+    <string name="user_data_name">Benutzername:</string>
     <string name="user_data_nummer">Matrikelnummer:</string>
     <string name="user_data_birth">Geburtsdatum und -ort:</string>
     <string name="user_data_address">Adresse:</string>
