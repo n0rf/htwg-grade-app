@@ -42,9 +42,9 @@ public final class R {
         public static final int grades_menu_item_search=0x7f080016;
         public static final int grades_menu_item_settings=0x7f08001a;
         public static final int header=0x7f08000b;
-        public static final int logged_in_user=0x7f080005;
         public static final int logged_in_user_address=0x7f080008;
         public static final int logged_in_user_birth=0x7f080007;
+        public static final int logged_in_user_fullname=0x7f080005;
         public static final int logged_in_user_nummer=0x7f080006;
         public static final int popup_filter_menu_item_all=0x7f08001e;
         public static final int popup_filter_menu_item_certificates=0x7f080020;

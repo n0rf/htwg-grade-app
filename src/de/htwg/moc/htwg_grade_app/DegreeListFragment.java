@@ -119,7 +119,8 @@ public class DegreeListFragment extends Fragment {
 			m_userName = getArguments().getString(USER);
 		}
 		if (!m_userName.equals("")) {
-			((TextView) m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
+//			((TextView) m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_fullname)).setText(Content.STUDENT.getName());
 			((TextView) m_rootView.findViewById(R.id.logged_in_user_nummer)).setText(Content.STUDENT.getNumber());
 			((TextView) m_rootView.findViewById(R.id.logged_in_user_birth)).setText(Content.STUDENT
 					.getBirthDateAndPlace());
