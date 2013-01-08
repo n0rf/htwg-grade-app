@@ -13,14 +13,6 @@
 	    android:divider="?android:attr/dividerHorizontal" >
 	</ListView>
 	
-	<!-- Button
-	    android:id="@+id/refresh_all_degree"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:visibility="invisible"
-	    android:drawableLeft="@drawable/ic_menu_refresh"
-	    android:text="@string/refresh_all" /-->
-	
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
