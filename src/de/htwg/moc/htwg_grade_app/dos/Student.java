@@ -4,8 +4,8 @@ package de.htwg.moc.htwg_grade_app.dos;
  * Class representing a Student.
  */
 public class Student {
-	private String m_name;
-	private String m_birthDateAndPlace = "12.12.1980";
+	private String m_name = "Michael Maier";
+	private String m_birthDateAndPlace = "1.1.1980 in Konstanz";
 	private String m_number = "123456";
 	private String m_address = "Musterstraﬂe 667, 78467 Konstanz";
 
