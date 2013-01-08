@@ -202,7 +202,7 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 					String degHtml = getHtml(degLink);
 					
 					// setup user date
-					if (null == m_student.getName()) {
+					if (m_student.getName().equals("Michael Maier")) {
 						addStudentData(degHtml, m_student);
 					}
 					
