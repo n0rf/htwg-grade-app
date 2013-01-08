@@ -176,9 +176,11 @@ public class QisRequest extends AsyncTask<String, Integer, Boolean> {
 
 		private void addStudentData(String html, Student student) {
 			student.setName(findStudentData(1, html));
-			student.setBirthDateAndPlace(findStudentData(2, html));
-			student.setNumber(findStudentData(5, html));
-			student.setAddress(findStudentData(6, html));
+			
+			// TODO: remove comment for REAL-data usage!
+//			student.setBirthDateAndPlace(findStudentData(2, html));
+//			student.setNumber(findStudentData(5, html));
+//			student.setAddress(findStudentData(6, html));
 		}
 
 		public boolean addDegrees(String link, List<Degree> degrees) {

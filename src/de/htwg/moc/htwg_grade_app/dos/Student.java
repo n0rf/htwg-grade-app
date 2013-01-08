@@ -5,9 +5,9 @@ package de.htwg.moc.htwg_grade_app.dos;
  */
 public class Student {
 	private String m_name;
-	private String m_birthDateAndPlace;
-	private String m_number;
-	private String m_address;
+	private String m_birthDateAndPlace = "12.12.1980";
+	private String m_number = "123456";
+	private String m_address = "Musterstraﬂe 667, 78467 Konstanz";
 
 	public Student() {
 	}
