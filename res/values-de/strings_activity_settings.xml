@@ -5,6 +5,7 @@
     <!-- Strings related to Settings -->
     <string name="pref_username_title">RZ-Benutzername</string>
 	<string name="pref_username_default"></string>
+	<string name="pref_username_information">Ihr vom RZ zugewiesener Benutzername. Normalerweise die ersten 2 Buchstaben des Vornamens und die ersten 6 Buchstaben des Nachnamens. Bsp.: mamuster für Max Mustermann.</string>
 	<string name="pref_username_key">pref_username</string>
 	<string name="pref_password_title">Passwort</string>
 	<string name="pref_password_default"></string>

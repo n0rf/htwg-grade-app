@@ -28,7 +28,7 @@ public class SettingsActivity extends PreferenceActivity {
 	/**
 	 * This fragment shows the preferences for the first header.
 	 */
-	public static class UserPasswordFragment extends PreferenceFragment { // implements OnSharedPreferenceChangeListener {
+	public static class UserPasswordFragment extends PreferenceFragment {
 		@Override
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);

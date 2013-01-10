@@ -8,7 +8,8 @@
             android:maxLines="1"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="@string/pref_username_title" />
+            android:title="@string/pref_username_title"
+            android:dialogMessage="@string/pref_username_information" />
         <EditTextPreference
             android:defaultValue="@string/pref_password_default"
             android:inputType="textPassword"
