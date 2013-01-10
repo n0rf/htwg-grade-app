@@ -50,6 +50,11 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 		// Get the intent, verify the action and get the query
 		handleIntent(getIntent());
 	}
+	
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+	}
 
 	@Override
 	protected void onResume() {
@@ -97,6 +102,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 				if (!Content.DEGREE_LIST.isEmpty()) {
 					if (m_lastSelectionKey.equals("")) {
 						m_lastSelectionKey = Content.DEGREE_LIST.get(m_lastSelection).getNumber();
+						degreeFragment.setActivatedPosition(m_lastSelection);
 					}
 					arguments.putString(GradesListFragment.ARG_DEGREE_NUMBER, m_lastSelectionKey);
 					gradesFragment.setArguments(arguments);
@@ -122,26 +128,26 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 
 	private void refreshDegreeList(boolean careAboutCurrent) {
 		// TODO: remove!
-		// if (!careAboutCurrent) {
-		// DegreeContent.tmpRefresh();
-		// refreshView();
-		// }
-		if (!Content.isRequesting) {
-			// check settings and refresh view with new data:
-			SharedPreferences settings = getSharedPreferences(SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
-			m_userName = settings.getString(SettingsActivity.KEY_PREF_USERNAME, "");
-			String password = settings.getString(SettingsActivity.KEY_PREF_PASSWORD, "");
-
-			if ("".equals(m_userName) || "".equals(password)) {
-				Intent intent = new Intent(this, SettingsActivity.class);
-				this.startActivity(intent);
-			} else {
-				// AsyncTask<String, String, Boolean> task =
-				if (!careAboutCurrent || (careAboutCurrent && Content.DEGREE_LIST.isEmpty())) {
-					Content.loadData(DegreeListActivity.this, m_userName, password);
-				}
-			}
-		}
+		 if (!careAboutCurrent) {
+		 Content.tmpRefresh();
+		 refreshView();
+		 }
+//		if (!Content.isRequesting) {
+//			// check settings and refresh view with new data:
+//			SharedPreferences settings = getSharedPreferences(SettingsActivity.KEY_PREF_USER_SETTINGS, MODE_PRIVATE);
+//			m_userName = settings.getString(SettingsActivity.KEY_PREF_USERNAME, "");
+//			String password = settings.getString(SettingsActivity.KEY_PREF_PASSWORD, "");
+//
+//			if ("".equals(m_userName) || "".equals(password)) {
+//				Intent intent = new Intent(this, SettingsActivity.class);
+//				this.startActivity(intent);
+//			} else {
+//				// AsyncTask<String, String, Boolean> task =
+//				if (!careAboutCurrent || (careAboutCurrent && Content.DEGREE_LIST.isEmpty())) {
+//					Content.loadData(DegreeListActivity.this, m_userName, password);
+//				}
+//			}
+//		}
 	}
 
 	@Override
@@ -170,8 +176,9 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 	 * the item with the given ID was selected.
 	 */
 	@Override
-	public void onItemSelected(String number) {
+	public void onItemSelected(int position, String number) {
 		m_lastSelectionKey = number;
+		m_lastSelection = position;
 		if (m_twoPane) {
 			// In two-pane mode, show the detail view in this activity by
 			// adding or replacing the detail fragment using a
@@ -254,6 +261,7 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 				R.id.degree_list_container);
 		if (null != degreeFragment && !Content.DEGREE_LIST.isEmpty()) {
 			degreeFragment.refreshListView();
+			degreeFragment.refreshStudentDetails();
 		} else {
 			if (!Content.DEGREE_LIST.isEmpty()) {
 				useDegreeListFragment(null);

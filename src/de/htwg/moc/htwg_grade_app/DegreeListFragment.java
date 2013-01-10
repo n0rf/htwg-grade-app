@@ -59,7 +59,7 @@ public class DegreeListFragment extends Fragment {
 		/**
 		 * Callback for when an item has been selected.
 		 */
-		public void onItemSelected(String number);
+		public void onItemSelected(int position, String number);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class DegreeListFragment extends Fragment {
 	 */
 	private static Callbacks sDummyCallbacks = new Callbacks() {
 		@Override
-		public void onItemSelected(String number) {
+		public void onItemSelected(int position, String number) {
 		}
 	};
 
@@ -100,7 +100,7 @@ public class DegreeListFragment extends Fragment {
 				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 					String number = Content.DEGREE_LIST.get(position).getNumber();
 					setActivatedPosition(position);
-					m_callbacks.onItemSelected(number);
+					m_callbacks.onItemSelected(position, number);
 				}
 			});
 		}
@@ -119,13 +119,7 @@ public class DegreeListFragment extends Fragment {
 			m_userName = getArguments().getString(USER);
 		}
 		if (!m_userName.equals("")) {
-//			((TextView) m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
-			((TextView) m_rootView.findViewById(R.id.logged_in_user_fullname)).setText(Content.STUDENT.getName());
-			((TextView) m_rootView.findViewById(R.id.logged_in_user_nummer)).setText(Content.STUDENT.getNumber());
-			((TextView) m_rootView.findViewById(R.id.logged_in_user_birth)).setText(Content.STUDENT
-					.getBirthDateAndPlace());
-			((TextView) m_rootView.findViewById(R.id.logged_in_user_address)).setText(Content.STUDENT
-					.getAddress());
+			refreshStudentDetails();
 		}
 		return m_rootView;
 	}
@@ -175,14 +169,16 @@ public class DegreeListFragment extends Fragment {
 		m_listChoiceMode = activateOnItemClick ? ListView.CHOICE_MODE_SINGLE : ListView.CHOICE_MODE_NONE;
 	}
 
-	private void setActivatedPosition(int position) {
-		if (position == ListView.INVALID_POSITION) {
-			((ListView) m_rootView.findViewById(R.id.degree_list)).setItemChecked(m_activatedPosition, false);
-		} else {
-			((ListView) m_rootView.findViewById(R.id.degree_list)).setItemChecked(position, true);
+	public void setActivatedPosition(int position) {
+		if (null != m_rootView) {
+			ListView lv = (ListView) m_rootView.findViewById(R.id.degree_list);
+			if (position == ListView.INVALID_POSITION) {
+				lv.setItemChecked(m_activatedPosition, false);
+			} else {
+				lv.setItemChecked(position, true);
+			}
+			m_activatedPosition = position;
 		}
-
-		m_activatedPosition = position;
 	}
 
 	public void refreshListView() {
@@ -191,6 +187,18 @@ public class DegreeListFragment extends Fragment {
 			lv.setAdapter(new ArrayAdapter<Degree>(getActivity(), android.R.layout.simple_list_item_activated_1,
 					android.R.id.text1, Content.DEGREE_LIST));
 			lv.setItemChecked(m_activatedPosition, true);
+		}
+	}
+
+	public void refreshStudentDetails() {
+		if (null != m_rootView && null != m_rootView.findViewById(R.id.logged_in_user_fullname)) {
+			// ((TextView)
+			// m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_fullname)).setText(Content.STUDENT.getName());
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_nummer)).setText(Content.STUDENT.getNumber());
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_birth)).setText(Content.STUDENT
+					.getBirthDateAndPlace());
+			((TextView) m_rootView.findViewById(R.id.logged_in_user_address)).setText(Content.STUDENT.getAddress());
 		}
 	}
 }
