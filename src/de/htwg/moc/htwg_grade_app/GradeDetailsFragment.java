@@ -154,12 +154,20 @@ public class GradeDetailsFragment extends Fragment {
 				i.putExtra(Intent.EXTRA_TEXT,
 						getString(R.string.share_button_text, m_grade.getExamText(), m_grade.getGrade()));
 
-				startActivity(Intent.createChooser(i,
-						getString(R.string.share_button_text, m_grade.getExamText(), m_grade.getGrade())));
+				startActivityForResult(Intent.createChooser(i,
+						getString(R.string.share_button_text, m_grade.getExamText(), m_grade.getGrade())), 0);
 			}
 		});
 		
 		return rootView;
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+//		if (requestCode != resultCode) {
+//			System.out.println("Wrong result: " + resultCode);
+//		}
 	}
 	
 	@Override
