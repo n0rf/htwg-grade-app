@@ -165,9 +165,6 @@ public class GradeDetailsFragment extends Fragment {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-//		if (requestCode != resultCode) {
-//			System.out.println("Wrong result: " + resultCode);
-//		}
 	}
 	
 	@Override

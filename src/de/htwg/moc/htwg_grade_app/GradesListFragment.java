@@ -234,14 +234,13 @@ public class GradesListFragment extends Fragment {
 	public void refreshListView(boolean requestNewGrades) {
 		if ("" != m_selectedDegree) {
 			if (requestNewGrades) {
-				// TODO: starting intend causes the grades fragment to be in back stack!
+				// starting intend causes the grades fragment to be in back stack!
 				Bundle bundle = new Bundle();
 				bundle.putBoolean(DegreeListActivity.REFRESH_CARE_ABOUT_CURRENT_KEY, false);
 				Intent intent = new Intent(getActivity(), DegreeListActivity.class);
 				intent.putExtras(bundle);
 				startActivity(intent);
 			} else {
-
 				// show the filtered degree details
 				if ("" == Content.EXAM_TEXT_FILTER) {
 					updateGradeList(Content.FILTER);

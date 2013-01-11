@@ -92,7 +92,7 @@ public class DegreeListFragment extends Fragment {
 		lv.setChoiceMode(m_listChoiceMode);
 		lv.setAdapter(new ArrayAdapter<Degree>(getActivity(), android.R.layout.simple_list_item_activated_1,
 				android.R.id.text1, Content.DEGREE_LIST));
-		// TODO: listview text size by setting an textview instead of text1
+		// possible addition: listview text size by setting an textview instead of text1
 		if (null != lv) {
 			lv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -192,8 +192,6 @@ public class DegreeListFragment extends Fragment {
 
 	public void refreshStudentDetails() {
 		if (null != m_rootView && null != m_rootView.findViewById(R.id.logged_in_user_fullname)) {
-			// ((TextView)
-			// m_rootView.findViewById(R.id.logged_in_user)).setText(m_userName);
 			((TextView) m_rootView.findViewById(R.id.logged_in_user_fullname)).setText(Content.STUDENT.getName());
 			((TextView) m_rootView.findViewById(R.id.logged_in_user_nummer)).setText(Content.STUDENT.getNumber());
 			((TextView) m_rootView.findViewById(R.id.logged_in_user_birth)).setText(Content.STUDENT
