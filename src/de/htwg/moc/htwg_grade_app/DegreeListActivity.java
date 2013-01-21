@@ -141,10 +141,11 @@ public class DegreeListActivity extends FragmentActivity implements OnMenuItemCl
 	}
 
 	private void refreshDegreeList(boolean careAboutCurrent) {
-		// TODO: remove!
+		// use commented lines for test data usage
 		// if (!careAboutCurrent) {
 		// Content.tmpRefresh();
 		// refreshView();
+		// return;
 		// }
 		if (!Content.isRequesting) {
 			// check settings and refresh view with new data:

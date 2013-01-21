@@ -71,13 +71,6 @@ public final class R {
     For more on layout aliases, see:
     http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
     
-
-    Layout alias to replace the single-pane version of the layout with a
-    two-pane version on Large screens.
-
-    For more on layout aliases, see:
-    http://developer.android.com/training/multiscreen/screensizes.html#TaskUseAliasFilters
-    
          */
         public static final int activity_degree_list=0x7f030000;
         public static final int activity_degree_twopane=0x7f030001;

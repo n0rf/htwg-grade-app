@@ -23,9 +23,7 @@ import de.htwg.moc.htwg_grade_app.dos.Grade;
 import de.htwg.moc.htwg_grade_app.qis.Content;
 
 /**
- * A fragment representing details of a Grade. This fragment is either contained
- * in a {@link DegreeListActivity} in two-pane mode (on tablets) or a
- * {@link GradesListActivity} on handsets.
+ * A fragment representing details of a Grade.
  */
 public class GradeDetailsFragment extends Fragment {
 	

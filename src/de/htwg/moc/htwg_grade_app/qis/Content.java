@@ -31,12 +31,6 @@ public class Content {
 	public static String EXAM_TEXT_FILTER = "";
 	
 	public static boolean isRequesting = false;
-
-	// TODO: remove test data!
-	static {
-		// some sample degrees and grades
-		//tmpRefresh();
-	}
 	
 	public static void tmpRefresh() {
 		DEGREES.clear();
